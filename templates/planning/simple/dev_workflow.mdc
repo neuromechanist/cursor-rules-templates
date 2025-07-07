@@ -1,0 +1,96 @@
+---
+description: Development workflow for simple plan.md-driven projects
+globs:
+alwaysApply: true
+---
+# Simple Planning Development Workflow for {{PROJECT_NAME}}
+
+## Task Management Approach
+
+### Plan.md-Driven Development
+**Core Principle:** Use `plan.md` file with markdown checkboxes for simple task tracking.
+
+1. **Follow plan.md sequentially:**
+   - Work through tasks in priority order
+   - Check off completed tasks: `- [x] Task name`
+   - Mark in-progress tasks: `- [⚠️] Task name` 
+   - Update estimates and notes in plan.md
+
+2. **Task Status Tracking:**
+   - `- [ ]` = Pending
+   - `- [⚠️]` = In Progress  
+   - `- [x]` = Completed
+   - Add notes below tasks for decisions/blockers
+
+3. **Plan Updates:**
+   - Update plan.md as requirements change
+   - Add new tasks when discovered
+   - Remove or modify tasks as needed
+   - Keep plan.md version controlled
+
+## Git Commit Standards
+
+### Commit Message Format
+- Reference plan.md tasks: `feat: implement user auth (plan.md task 3)`
+- Use conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`
+- Keep first line under 50 characters
+- Be specific and actionable
+
+### Commit Frequency
+- Commit after completing each plan.md task
+- Make atomic commits (one logical change)
+- Update plan.md in same commit when task completed
+
+## Development Process
+
+### Daily Workflow
+1. **Check plan.md:** Review current tasks and priorities
+2. **Pick next task:** Select highest priority uncompleted task
+3. **Mark in-progress:** Update task status to `- [⚠️] Task name`
+4. **Implement:** Code the feature/fix following task requirements
+5. **Test:** Verify implementation works as expected
+6. **Commit:** Commit changes with reference to plan.md task
+7. **Mark complete:** Update task status to `- [x] Task name`
+8. **Update plan:** Add notes, new tasks, or modify existing ones
+
+### Code Quality Standards
+- Follow language-specific style guides (PEP 8 for Python, etc.)
+- Write clear, self-documenting code with meaningful names
+- Add type hints and docstrings where appropriate
+- Test core functionality before marking tasks complete
+- Run linting and formatting tools before commits
+
+### Testing Strategy
+- Unit test core functions and classes
+- Test CLI interfaces and main workflows
+- Include edge cases and error conditions
+- Mock external dependencies in tests
+- Keep tests simple and focused
+
+## File Organization
+
+Use standard project structure:
+```
+{{PROJECT_NAME}}/
+├── src/{{PROJECT_NAME}}/     # Source code
+├── tests/                    # Test files
+├── docs/                     # Documentation
+├── plan.md                   # Development plan
+├── pyproject.toml           # Project config
+└── README.md                # Project overview
+```
+
+## Integration with Git
+
+### Branch Strategy
+- Use feature branches for larger tasks
+- Work directly on main for small fixes
+- Reference plan.md tasks in commit messages
+- Keep commits atomic and focused
+
+### Pull Request Process
+- Create PRs for feature branches
+- Reference plan.md tasks in PR description
+- Update plan.md status when PR merged
+- Review plan.md changes as part of code review
+ 

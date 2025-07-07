@@ -1,0 +1,143 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Development Workflow Template
+
+This guide outlines a general process for managing software development projects, with **optional** integration points for a task management system like Task Master.
+
+## Task Management (Optional - Task Master Integration)
+
+If using Task Master (or a similar tool), you can manage tasks via its MCP Server or CLI:
+
+1.  **MCP Server (Recommended for Integrated Tools)**:
+    *   Interact via AI agents or IDEs using provided tools (e.g., `get_tasks`, `add_subtask`).
+    *   Offers structured data, better performance.
+    *   *(Refer to `taskmaster_reference.mdc` for details on specific tools if using Task Master)*
+
+2.  **CLI (For Users & Fallback)**:
+    *   Use the tool's command-line interface (e.g., `task-master list`).
+    *   *(Refer to `taskmaster_reference.mdc` for specific commands if using Task Master)*
+
+*Note: If not using a dedicated task management tool, adapt the workflow sections below accordingly (e.g., using issue trackers, project boards, or simpler to-do lists).*
+
+## General Development Workflow Process
+
+-   **(Optional: Task Master) Start new projects:** Initialize the task manager (`init`, `parse_prd`).
+-   **Begin work sessions:** Review current tasks/goals (e.g., `get_tasks` / `task-master list`, check issue board).
+-   **Determine next steps:** Identify the next logical piece of work based on priorities and dependencies (`next_task` / `task-master next`, manual selection).
+-   **(Optional: Task Master) Analyze complexity:** Assess task complexity (`analyze_complexity`, `complexity_report`).
+-   **Clarify requirements:** Ensure a clear understanding of the task/feature (e.g., `get_task` / `task-master show <id>`, read issue details).
+-   **(Optional: Task Master) Break down complex tasks:** Subdivide large tasks (`expand_task`, `clear_subtasks` if regenerating).
+-   **Implement code:** Follow task details, project standards, and best practices.
+-   **Verify implementation:** Test code according to defined strategies (See [`testing.mdc`](mdc:testing.mdc)).
+-   **(Optional: Task Master) Mark completed tasks:** Update task status (`set_task_status`).
+-   **(Optional: Task Master) Handle implementation drift:** Update future tasks if plans change (`update`, `update_task`).
+-   **(Optional: Task Master) Add new tasks/subtasks:** Incorporate newly discovered work (`add_task`, `add_subtask`).
+-   **(Optional: Task Master) Log implementation details:** Append notes to tasks/subtasks (`update_subtask`).
+-   **(Optional: Task Master) Manage dependencies:** Maintain task relationships (`add_dependency`, `remove_dependency`, `validate_dependencies`, `fix_dependencies`).
+-   **Respect priorities:** Focus work based on project needs.
+-   **Report progress:** Keep stakeholders informed (e.g., `get_tasks` / `task-master list`, stand-ups, status reports).
+-   **Ensure quality:** Pass CI checks ([`ci-cd.mdc`](mdc:ci-cd.mdc)) before merging.
+-   **(If applicable) Follow schema guidelines:** Adhere to data structure rules (e.g., [`schema-org.mdc`](mdc:schema-org.mdc) if relevant).
+-   **Update documentation:** Maintain documentation ([`mkdocs.mdc`](mdc:mkdocs.mdc) or similar).
+
+## (Optional: Task Master) Task Complexity Analysis & Breakdown
+
+-   Use task manager features (`analyze_complexity`, `complexity_report`, `expand_task`, `expand_all`, `clear_subtasks`) to manage complex tasks.
+-   Leverage AI/research features if available (`--research`, `--prompt`).
+
+## (Optional: Task Master) Task Structure & Status
+
+-   Utilize task fields (id, title, description, status, dependencies, priority, details, testStrategy, subtasks) provided by the task manager.
+-   Define and use appropriate task statuses (pending, done, deferred, etc.).
+
+## Iterative Implementation (General Principles)
+
+Follow this iterative process, adapting for your specific tools:
+
+0.  **Create Feature Branch:**
+    *   Create a descriptive Git branch (e.g., `feature/user-auth`, `fix/validation-error`) from the main branch (`main` or `develop`). **Avoid generic names or task IDs.**
+    *   Switch to the new branch before starting work.
+    *   **Tool:** `git checkout -b "feature/<short-description>"` (or `fix/...`, `refactor/...`)
+
+1.  **Understand the Goal:**
+    *   Thoroughly review the task/issue requirements.
+    *   **(Optional: Task Master)** Use `get_task` / `task-master show <id>`.
+
+2.  **Explore & Plan (Iteration 1):**
+    *   Identify necessary code changes (files, functions, lines).
+    *   Outline the implementation steps and potential challenges.
+
+3.  **Log the Plan (Recommended):**
+    *   Document the plan (e.g., in the issue, task details, comments).
+    *   **(Optional: Task Master)** Use `update_subtask --prompt='<detailed plan>'`.
+
+4.  **Verify the Plan (Optional):**
+    *   Review the documented plan.
+    *   **(Optional: Task Master)** Use `get_task` / `task-master show <id>`.
+
+5.  **Begin Implementation:**
+    *   **(Optional: Task Master)** Set status: `set_task_status --status=in-progress`.
+    *   Start coding based on the plan.
+
+6.  **Refine and Log Progress (Iteration 2+):**
+    *   As work progresses, log findings, challenges, and decisions.
+    *   Focus on capturing what worked, what didn't, and why.
+    *   **(Optional: Task Master)** Regularly use `update_subtask --prompt='<update details>'` after reviewing existing logs.
+    *   **Commit Frequently:** Stage and commit meaningful chunks of work locally with descriptive messages (under 50 chars).
+        *   **Tool:** `git add . && git commit -m 'feat: Add user login endpoint'`
+
+7.  **Review & Update Rules/Docs (Post-Implementation):**
+    *   Ensure local tests pass ([`testing.mdc`](mdc:testing.mdc)).
+    *   Identify and document new code patterns or conventions. Update/create rules ([`cursor_rules.mdc`](mdc:cursor_rules.mdc), [`self_improve.mdc`](mdc:self_improve.mdc)).
+    *   Update project documentation ([`mkdocs.mdc`](mdc:mkdocs.mdc) or similar).
+
+8.  **Mark Task Complete:**
+    *   Verify the implementation thoroughly.
+    *   **(Optional: Task Master)** Set status: `set_task_status --status=done`.
+    *   Close the corresponding issue/ticket if applicable.
+
+9.  **Pre-Commit Checks & Final Commit (AI Action / Manual):**
+    *   **Run Checks:** Ensure linters (`ruff check .` or similar) and tests (`pytest` or similar) pass.
+        *   **Tool:** `run_terminal_cmd`
+    *   **Stage Changes:** `git add .`
+        *   **Tool:** `run_terminal_cmd`
+    *   **Commit:** Create a comprehensive commit message summarizing the feature/fix.
+        *   **Tool:** `run_terminal_cmd` (e.g., `git commit -m 'feat(auth): Implement JWT authentication\n\n- Added login route\n- Implemented token generation\n\nRelates to #123. (Optional: Task 4.2)'`)
+    *   **Changeset (If applicable):** Consider if a Changeset is needed ([`changeset.mdc`](mdc:changeset.mdc)).
+        *   **Tool:** `run_terminal_cmd` (e.g., `npm run changeset`, `git add .`, `git commit --amend --no-edit`)
+
+10. **Create Pull Request:**
+    *   Push the branch: `git push origin <branch_name>`
+    *   Create a PR targeting the main branch (`main` or `develop`).
+    *   **Title:** Descriptive summary (e.g., `feat: Implement User Authentication`). **No task IDs.**
+    *   **Body:** Detail the changes. *Optionally* reference related issues/tasks (e.g., `Closes #123. Implements Task 4.`).
+    *   **Tool (Example):** `mcp_github_create_pull_request(owner='<owner>', repo='<repo>', head='<branch_name>', base='main', title='feat: <Short Description>', body='Summary...\n\nCloses #<issue>. Implements Task <task_id>.')`
+    *   Request review.
+    *   **Tool (Example):** `mcp_github_add_issue_comment(owner='<owner>', repo='<repo>', issue_number=<PR_NUMBER>, body='@reviewer Ready for review.')`
+
+11. **Proceed to Next Task (After PR Merge):**
+    *   Identify the next task/feature and repeat the process.
+    *   **Proactive Continuation (AI):** Unless clarification or choices are needed, proceed to the next logical step.
+
+## Code Analysis & Refactoring Techniques
+
+- **Top-Level Symbol Search**:
+    - Use tools like `grep`/`ripgrep` to find exported functions, classes, constants (adapt patterns for the language, e.g., `rg "export (async function|function|const|class) \w+"` for JS/TS, `rg "^def \w+\("` for Python module-level functions).
+    - Aids in understanding module structure and planning refactors.
+
+## Running Commands in Terminal
+
+- **Activate Environment:** Ensure the correct virtual environment (conda, venv, etc.) is active before running build, install, or test commands.
+  ```bash
+  # Example: conda activate my-env
+  # Example: source .venv/bin/activate
+  conda activate base # Or specific env
+  pytest
+  mkdocs build
+  ```
+
+---
+*This workflow provides a general guideline. Adapt it based on your specific project needs, tools, and team practices.*
