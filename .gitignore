@@ -1,0 +1,18 @@
+# General
+.vscode/
+
+# OS
+.DS_Store
+
+# Environment
+.env
+.env.local
+
+# Cursor
+.cursor/
+
+# Python
+__pycache__/
+
+# Node
+node_modules/
