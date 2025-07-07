@@ -1,0 +1,45 @@
+---
+description: Standards for writing effective Cursor AI rules
+globs:
+alwaysApply: false
+---
+# Cursor Rule Writing Standards
+
+- **Effective Rule Structure:**
+  - YAML frontmatter with `description`, `globs`, `alwaysApply` fields
+  - Clear goal statement at the top
+  - Bullet-point format for specific requirements
+  - Practical examples when helpful
+  - Cross-references to related rules using `[name](mdc:filename.mdc)`
+
+- **Rule Content Guidelines:**
+  - Be specific and actionable
+  - Focus on AI-understandable instructions
+  - Avoid verbose explanations
+  - Include tool/command references when relevant
+  - Keep examples concise but complete
+
+- **YAML Frontmatter:**
+  ```yaml
+  ---
+  description: Brief description of rule purpose
+  globs: # File patterns where rule applies (optional)
+  alwaysApply: false # true for core rules, false for optional
+  ---
+  ```
+
+- **Cross-References:**
+  - Use `[Rule Name](mdc:rule_file.mdc)` format
+  - Reference related rules for context
+  - Keep references current when files change
+
+- **Rule Maintenance:**
+  - Update based on actual code patterns
+  - Remove outdated practices
+  - Add examples from real implementations
+  - Test rules for AI effectiveness
+
+
+---
+
+*Customize these rule-writing guidelines for {{PROJECT_NAME}}'s team size, experience level, and development practices.*

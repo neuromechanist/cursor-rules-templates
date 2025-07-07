@@ -1,0 +1,91 @@
+---
+description: CI/CD automation standards using GitHub Actions
+globs:
+alwaysApply: false
+---
+# CI/CD Workflow Standards (GitHub Actions)
+
+- **Goal:** Automate testing, builds, documentation deployment, and potentially releases to ensure code quality and streamline workflows.
+- **Platform:** GitHub Actions is recommended, but principles apply to other CI/CD platforms (GitLab CI, Jenkins, etc.).
+- **Workflow Files:** Store definitions in `.github/workflows/` (e.g., `test.yml`, `deploy-docs.yml`).
+
+- **Essential Workflows:**
+    - **Testing Workflow (`test.yml` or `ci.yml`)**: Runs on every push and pull request to main development branches (e.g., `main`, `develop`).
+        - **Triggers:** `on: [push, pull_request]` (filtered by branch if necessary).
+        - **Jobs:**
+            - **Linting:** Check code style and quality (e.g., `ruff`, `eslint`, `prettier`, `black`). **Run this first.**
+            - **Unit/Integration Tests:** Set up the required environment (language, dependencies), run test suites ([`testing.mdc`](mdc:testing.mdc)). Use matrix strategies for multiple versions (Python, Node.js) if needed.
+            - **Schema Validation (If applicable):** Run tests validating data against schemas.
+            - **Build Check (If applicable):** Ensure the project builds successfully (e.g., `npm run build`, `python setup.py build`).
+            - **Coverage Reporting (Optional):** Generate and upload test coverage reports (e.g., to Codecov, Coveralls).
+        - **Failure:** The workflow MUST fail if any critical job (linting, testing, build) fails.
+    - **Documentation Deployment (`deploy-docs.yml`)**: Runs on pushes/merges to the primary branch (e.g., `main`) *after* tests pass.
+        - **Triggers:** `on: push: branches: [main]`
+        - **Jobs:**
+            - `build-deploy-docs`: Set up environment, install docs dependencies, build the documentation site ([`mkdocs.mdc`](mdc:mkdocs.mdc) or similar), deploy to the hosting platform (GitHub Pages, Netlify, Vercel, ReadTheDocs).
+        - **Permissions:** Requires appropriate permissions (`contents: write`, `pages: write`, or specific deploy keys/tokens).
+    - **Release Workflow (`release.yml`) (Optional):** Triggered manually or by tag creation.
+        - **Jobs:** Build artifacts, create GitHub Release, publish packages (e.g., to PyPI, npm).
+
+- **Workflow Structure Example (`test.yml` - Python Focus):**
+  ```yaml
+  name: CI Pipeline
+
+  on:
+    push:
+      branches: [ main, develop ]
+    pull_request:
+      branches: [ main, develop ]
+
+  jobs:
+    lint:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip' # Cache dependencies
+      - name: Install lint dependencies
+        run: pip install ruff black # Or install via project deps
+      - name: Run linters
+        run: |
+          ruff check .
+          black --check .
+
+    test:
+      needs: lint # Run after linting passes
+      runs-on: ubuntu-latest
+      strategy:
+        fail-fast: false # Allow other matrix jobs to continue if one fails
+        matrix:
+          python-version: ['3.9', '3.10', '3.11']
+      steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      - name: Install dependencies
+        run: pip install .[test] # Assuming test deps in pyproject.toml
+      - name: Run tests
+        run: pytest --cov=src --cov-report=xml
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # Add secret
+          files: ./coverage.xml
+          flags: python-${{ matrix.python-version }}
+  ```
+
+- **Secrets:** Store sensitive tokens (API keys, deployment keys) securely in GitHub secrets (`secrets.YOUR_SECRET_NAME`).
+- **Best Practices:**
+    - **Keep Workflows Focused:** Separate concerns (test, build, deploy).
+    - **Use Specific Action Versions:** Pin actions (e.g., `actions/checkout@v4`) to avoid unexpected breaking changes.
+    - **Cache Dependencies:** Use `actions/cache` or built-in caching (e.g., `setup-python`, `setup-node`) to speed up runs.
+    - **Descriptive Names:** Clearly name workflows, jobs, and steps.
+    - **Minimize Job Runtimes:** Optimize installation and test execution.
+    - **Review Regularly:** Update workflows and actions periodically.
+         - **Conditional Execution:** Use `if:` conditions to control job/step execution (e.g., only deploy docs on `main` branch push).

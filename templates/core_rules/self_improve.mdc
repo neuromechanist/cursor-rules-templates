@@ -1,0 +1,79 @@
+---
+description: Process for continuously improving development rules
+globs:
+alwaysApply: false
+---
+# Continuous Rule Improvement
+
+- **Rule Improvement Triggers:**
+  - New code patterns not covered by existing rules
+  - Repeated similar implementations across files
+  - Common error patterns that could be prevented
+  - New libraries or tools being used consistently
+  - Emerging best practices in the codebase
+
+- **Analysis Process:**
+  - Compare new code with existing rules
+  - Identify patterns that should be standardized
+  - Look for references to external documentation
+  - Check for consistent error handling patterns
+  - Monitor test patterns and coverage (See [`testing.mdc`](mdc:testing.mdc))
+
+- **Rule Updates:**
+  - **Add New Rules When:**
+    - A new technology/pattern is used consistently (e.g., in 3+ places)
+    - Common bugs could be prevented by a rule
+    - Code reviews repeatedly mention the same feedback
+    - New security, performance, or architectural patterns emerge
+
+  - **Modify Existing Rules When:**
+    - Better examples exist in the codebase
+    - Additional edge cases or nuances are discovered
+    - Related rules have been updated
+    - Implementation details have changed significantly
+
+- **Example Pattern Recognition (Generic):**
+  ```python
+  # If you see repeated setup/teardown like:
+  db = connect_db()
+  try:
+      process_data(db, data)
+  finally:
+      db.close()
+
+  # Consider a rule for using context managers:
+  # - Use `with connect_db() as db:` for resource management
+  ```
+
+- **Rule Quality Checks:**
+  - Rules should be actionable, specific, and clearly worded
+  - Examples should ideally come from actual (or realistic) code
+  - References (to other rules or external docs) should be accurate and up-to-date
+  - Patterns should be consistently enforceable (manually or via linters)
+
+- **Continuous Improvement Process:**
+  - Regularly review code review comments and discussions
+  - Track common development questions or points of confusion
+  - Update rules after major refactors or architectural changes
+  - Add links to relevant external documentation or style guides
+  - Ensure related rules are cross-referenced for coherence
+
+- **Rule Deprecation:**
+  - Clearly mark outdated patterns/rules as deprecated
+  - Provide guidance or migration paths if applicable
+  - Remove rules that no longer apply to the current tech stack or practices
+  - Update references pointing to deprecated rules
+
+- **Documentation Synergy:**
+  - Keep rule examples synchronized with any associated project documentation ([`mkdocs.mdc`](mdc:mkdocs.mdc) or similar)
+  - Update references to external documentation if they change
+  - Maintain links between related rules for easy navigation
+
+Consider adding rules related to specific project aspects like CI/CD ([`ci-cd.mdc`](mdc:ci-cd.mdc)), data schemas, API design, etc., as relevant patterns emerge.
+
+Follow [`cursor_rules.mdc`](mdc:cursor_rules.mdc) for proper rule formatting and structure.
+
+
+---
+
+*Adapt this improvement process to {{PROJECT_NAME}}'s team size, development pace, and culture.*
