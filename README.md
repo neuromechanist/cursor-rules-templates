@@ -2,14 +2,14 @@
 
 **Purpose:** Proven templates for integrating AI/LLM assistance into software development workflows. Choose complexity-appropriate approaches from simple plan-driven development to AI-powered task management.
 
-## 🎯 Who This Is For
+## Who This Is For
 
 - **AI-assisted developers** using Cursor, GitHub Copilot, or similar tools
 - **Solo developers** and **small teams** wanting structured LLM workflows  
 - **Projects needing** consistent development standards with AI integration
 - **Teams** looking to leverage AI for task breakdown and project management
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Choose Your Project Complexity
 
@@ -51,7 +51,7 @@ cp templates/config/pyproject.toml ./
 ### 5. Replace Placeholders
 Replace `{{PROJECT_NAME}}`, `{{YOUR_NAME}}`, etc. in copied files.
 
-## 📁 Template Structure
+## Template Structure
 
 ### Core Development Rules (`templates/core_rules/`)
 AI-integrated development standards:
@@ -81,7 +81,7 @@ AI-integrated development standards:
 - **`pre-commit`** - Git hook for automatic Python code formatting
 - **`github/workflows/`** - CI/CD templates (test, docs, release)
 
-## 🎯 LLM Integration Features
+## LLM Integration Features
 
 ### AI-Assisted Development
 - **Cursor rules** optimized for code generation and review
@@ -99,7 +99,7 @@ AI-integrated development standards:
 - **Commit message** templates for AI context
 - **Task tracking** with AI-powered complexity analysis
 
-## 📋 Use Cases & Examples
+## Use Cases & Examples
 
 ### Simple Python CLI Tool
 ```bash
@@ -121,7 +121,7 @@ cp templates/config/* ./
 # Set up TaskMaster: task-master init && task-master parse-prd
 ```
 
-## 🔧 Customization
+## Customization
 
 ### Standard Placeholders
 - `{{PROJECT_NAME}}` - Your project name
@@ -136,7 +136,7 @@ find . -name "*.mdc" -o -name "*.md" -o -name "*.toml" -o -name "*.yml" | \
 xargs sed -i 's/{{PROJECT_NAME}}/my-project/g'
 ```
 
-## 🛠️ Pre-commit Quality Hook
+## Pre-commit Quality Hook
 
 The included pre-commit script (`templates/config/pre-commit`) provides automatic code quality for Python projects:
 
@@ -151,7 +151,7 @@ cp templates/config/pre-commit .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
 
-## 🎯 Why These Templates?
+## Why These Templates?
 
 ### Problem Solved
 - **Inconsistent AI assistance** across projects
@@ -167,4 +167,4 @@ chmod +x .git/hooks/pre-commit
 
 ---
 
-**License:** MIT - Adapt freely for your projects 
+**License:** MIT - Adapt freely for your projects
