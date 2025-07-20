@@ -1,124 +1,169 @@
-# Development Workflow & Rule Templates
+# LLM-Integrated Development Templates
 
-Proven, modular development workflow templates for modern software projects. Choose the components you need - from simple plan-driven development to AI-powered task management.
+**Purpose:** Proven templates for integrating AI/LLM assistance into software development workflows. Choose complexity-appropriate approaches from simple plan-driven development to AI-powered task management.
 
 ## 🎯 Who This Is For
 
-- **Solo developers** and **small teams** starting new projects
-- **Cursor AI users** wanting consistent, intelligent code assistance
-- **Projects needing** established development standards and workflows
+- **AI-assisted developers** using Cursor, GitHub Copilot, or similar tools
+- **Solo developers** and **small teams** wanting structured LLM workflows  
+- **Projects needing** consistent development standards with AI integration
+- **Teams** looking to leverage AI for task breakdown and project management
 
 ## 🚀 Quick Start
 
-1. **Choose your approach:**
-   - **Simple projects (< 10 tasks)**: Use `planning/simple/` with plan.md
-   - **Complex projects (15+ tasks)**: Use `planning/taskmaster/` with AI task management
+### 1. Choose Your Project Complexity
 
-2. **Copy core rules:**
-   ```bash
-   mkdir -p .cursor/rules
-   cp templates/core_rules/essential.mdc .cursor/rules/
-   ```
+**Simple Projects (< 10 tasks):**
+- Use `planning/simple/` with plan.md markdown tracking
+- Basic AI assistance with Cursor rules
 
-3. **Copy planning templates:**
-   ```bash
-   # For simple planning
-   cp templates/planning/simple/* ./
-   
-   # For complex planning  
-   cp templates/planning/taskmaster/* ./
-   ```
+**Complex Projects (15+ tasks):**  
+- Use `planning/taskmaster/` with AI-powered task management
+- Advanced AI integration with MCP tools
 
-4. **Replace placeholders:** `{{PROJECT_NAME}}`, `{{YOUR_NAME}}`, etc.
+### 2. Set Up Core Rules
+```bash
+mkdir -p .cursor/rules
+cp templates/core_rules/cursor_rules.mdc .cursor/rules/
+# Enables AI-assisted development with quality standards
+```
+
+### 3. Choose Planning Approach
+```bash
+# For simple planning
+cp templates/planning/simple/* ./
+
+# For complex planning with AI task management
+cp templates/planning/taskmaster/* ./
+```
+
+### 4. Set Up Quality Tools (Python Projects)
+```bash
+# Pre-commit hook for automatic code quality
+cp templates/config/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+# Runs ruff check/format on staged Python files only
+
+# Project configuration
+cp templates/config/pyproject.toml ./
+```
+
+### 5. Replace Placeholders
+Replace `{{PROJECT_NAME}}`, `{{YOUR_NAME}}`, etc. in copied files.
 
 ## 📁 Template Structure
 
-### Core Development Rules
-Modular rules for Cursor AI - choose what you need:
+### Core Development Rules (`templates/core_rules/`)
+AI-integrated development standards:
 
-- **`essential.mdc`** ⭐ **Start here** - Git workflow, code quality, basic development standards
-- **`testing.mdc`** - Testing standards with pytest
-- **`ci_cd.mdc`** - GitHub Actions workflows  
-- **`documentation.mdc`** - MkDocs documentation standards
-- **`cursor_rules.mdc`** - How to write effective Cursor rules
-- **`self_improve.mdc`** - Continuous improvement process
+- **`cursor_rules.mdc`** ⭐ **Essential** - Complete AI-assisted workflow, git standards, code quality
+- **`testing.mdc`** - Testing standards with pytest integration
+- **`ci_cd.mdc`** - GitHub Actions workflows for automated quality
+- **`documentation.mdc`** - MkDocs documentation with AI assistance
+- **`self_improve.mdc`** - Continuous improvement with AI feedback
 
-### Planning Approaches
-Choose based on project complexity:
+### Planning Systems (`templates/planning/`)
 
-- **`planning/simple/`** ✅ **< 10 tasks** - plan.md with markdown checkboxes
-- **`planning/taskmaster/`** 🔧 **15+ tasks** - AI-powered task management with MCP integration
+**Simple Planning (`planning/simple/`)** - For straightforward projects:
+- `plan.md` with markdown checkboxes
+- `dev_workflow.mdc` - Concise workflow rules
+- `README.md` - Setup guide
 
-### Configuration Templates
-Ready-to-use configs with placeholders:
+**TaskMaster Planning (`planning/taskmaster/`)** - For complex projects:
+- AI-powered task breakdown and management
+- MCP integration for tool-assisted development
+- `taskmaster_reference.mdc` - Complete tool reference
 
-- **`config/pyproject.toml`** - Python project with ruff, pytest, mypy
-- **`config/mkdocs.yml`** - Documentation with Material theme
+### Configuration Templates (`templates/config/`)
+
+- **`pyproject.toml`** - Python project with ruff, pytest, mypy
+- **`mkdocs.yml`** - Documentation with Material theme
+- **`pre-commit`** - Git hook for automatic Python code formatting
 - **`github/workflows/`** - CI/CD templates (test, docs, release)
 
-## 🎯 Use Cases & Examples
+## 🎯 LLM Integration Features
 
-### Simple Python Project
+### AI-Assisted Development
+- **Cursor rules** optimized for code generation and review
+- **Task breakdown** with AI research capabilities (TaskMaster)
+- **Quality automation** with pre-commit hooks
+- **Documentation** templates for AI-generated docs
+
+### Code Quality Automation
+- **Pre-commit hooks** run `ruff check --fix` and `ruff format` on staged Python files
+- **CI/CD templates** for automated testing and deployment
+- **Type checking** and linting configurations
+
+### Workflow Optimization
+- **Branch naming** standards for AI comprehension
+- **Commit message** templates for AI context
+- **Task tracking** with AI-powered complexity analysis
+
+## 📋 Use Cases & Examples
+
+### Simple Python CLI Tool
 ```bash
-mkdir -p .cursor/rules .github/workflows
-cp templates/core_rules/essential.mdc .cursor/rules/
+mkdir -p .cursor/rules
+cp templates/core_rules/cursor_rules.mdc .cursor/rules/
 cp templates/planning/simple/* ./
-cp templates/config/pyproject.toml ./
-# Edit placeholders: PROJECT_NAME, YOUR_NAME, etc.
+cp templates/config/{pyproject.toml,pre-commit} ./
+cp templates/config/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+# Edit placeholders: PROJECT_NAME, etc.
 ```
 
-### Complex Multi-Feature Project
+### Complex Web Application
 ```bash
 mkdir -p .cursor/rules
 cp templates/core_rules/*.mdc .cursor/rules/
 cp templates/planning/taskmaster/* ./
-cp templates/config/pyproject.toml ./
-# Use taskmaster init and parse-prd for task management
+cp templates/config/* ./
+# Set up TaskMaster: task-master init && task-master parse-prd
 ```
 
 ## 🔧 Customization
 
 ### Standard Placeholders
-Replace these in all templates:
 - `{{PROJECT_NAME}}` - Your project name
-- `{{YOUR_NAME}}` - Your name/organization
+- `{{YOUR_NAME}}` - Your name/organization  
 - `{{YOUR_EMAIL}}` - Your email
 - `{{GITHUB_USERNAME}}` - GitHub username
 - `{{REPO_NAME}}` - Repository name
 
-### Find and Replace
+### Bulk Replace
 ```bash
-# Replace placeholders after copying files
 find . -name "*.mdc" -o -name "*.md" -o -name "*.toml" -o -name "*.yml" | \
 xargs sed -i 's/{{PROJECT_NAME}}/my-project/g'
 ```
 
-## 📋 Template Overview
+## 🛠️ Pre-commit Quality Hook
 
-**Essential Rules:** Git workflow, code quality, development standards
-**Testing Rules:** Pytest configuration, coverage, CI integration  
-**CI/CD Rules:** GitHub Actions, security, deployment automation
-**Documentation Rules:** MkDocs setup, API docs, writing standards
-**Simple Planning:** plan.md with markdown checkboxes for task tracking
-**TaskMaster Planning:** AI-powered task management with MCP integration
+The included pre-commit script (`templates/config/pre-commit`) provides automatic code quality for Python projects:
 
-## 🚀 Using the Templates
+- **Runs on commit:** Automatically processes staged Python files
+- **Ruff integration:** Executes `ruff check --fix --unsafe-fixes` and `ruff format`
+- **Smart staging:** Re-stages only the originally staged files after formatting
+- **Fail-safe:** Prevents commits if unfixable issues exist
 
-### With Cursor AI
-1. Copy `.mdc` files to `.cursor/rules/` in your project
-2. Cursor automatically applies them during development
-3. Modify rules based on your project needs
+**Setup:**
+```bash
+cp templates/config/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
 
-### Planning Systems
-- **Simple planning**: Use plan.md for straightforward task tracking
-- **TaskMaster planning**: Use AI-powered task management for complex projects
-- Switch between approaches as your project grows
+## 🎯 Why These Templates?
 
-### Customization
-Templates are modular and extensible:
-- Start with essential.mdc, add others as needed
-- Modify rules to match your team's practices
-- Contribute improvements back to the project
+### Problem Solved
+- **Inconsistent AI assistance** across projects
+- **Manual setup** of development workflows  
+- **Poor AI context** from unclear project structure
+- **Quality control** gaps in AI-generated code
+
+### Benefits
+- **Faster project setup** with proven patterns
+- **Better AI assistance** through structured rules and context
+- **Automated quality control** with pre-commit hooks
+- **Scalable workflows** from simple to complex projects
 
 ---
 
