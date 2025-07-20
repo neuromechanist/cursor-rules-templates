@@ -30,9 +30,9 @@ task-master set-status <id> --status=in-progress|done
 4. **Create branch:** `git checkout -b "feature/description"`
 5. **Implement:** Code following task requirements
 6. **Log progress:** `update_subtask --prompt="implementation notes"`
-7. **Test & commit:** Reference task ID in commit
+7. **Test & commit:** NO need to reference task ID in commit (length <50 characters, no newlines). Commits should be atomic and focused.
 8. **Mark complete:** Set status to done
-9. **Create PR:** Reference task in description
+9. **Create PR:** Reference task in description with Concise Title and Description
 
 ## Task Breakdown & Dependencies
 

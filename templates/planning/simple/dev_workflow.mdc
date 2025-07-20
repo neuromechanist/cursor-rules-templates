@@ -14,7 +14,7 @@
 3. **Mark in-progress:** `- [⚠️] Task name`
 4. **Implement:** Code following task requirements
 5. **Test:** Verify implementation
-6. **Commit:** Reference plan.md task in message
+6. **Commit:** NO need to reference plan.md task in message (length <50 characters, no newlines).
 7. **Mark complete:** `- [x] Task name`
 8. **Update plan:** Add notes or new tasks (if applicable)
 
