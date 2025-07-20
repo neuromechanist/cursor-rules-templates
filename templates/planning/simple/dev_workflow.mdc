@@ -16,7 +16,7 @@
 5. **Test:** Verify implementation
 6. **Commit:** Reference plan.md task in message
 7. **Mark complete:** `- [x] Task name`
-8. **Update plan:** Add notes or new tasks
+8. **Update plan:** Add notes or new tasks (if applicable)
 
 ## Git Standards
 
@@ -30,11 +30,11 @@ git commit -m "feat: implement user auth (plan.md task 3)"
 ### Branch Strategy
 - Feature branches for larger tasks: `git checkout -b "feature/description"`
 - Direct commits to main for small fixes
-- Keep commits atomic and focused
+- Keep commits ATOMIC and FOCUSED
 
 ## Code Quality
 
-### Python Projects (Pre-commit Setup)
+### Python Projects (Pre-commit Setup): We have a specific pre-commit hook for Python projects.
 ```bash
 cp templates/config/pre-commit .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
@@ -71,4 +71,3 @@ chmod +x .git/hooks/pre-commit
 - Reference plan.md tasks in PR descriptions
 - Update plan.md status when PR merged
 - Review plan.md changes as part of code review
- 
