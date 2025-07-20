@@ -1,4 +1,10 @@
-# AI-Assisted Development Workflow for {{PROJECT_NAME}}
+---
+title: AI-Assisted Development Workflow for {{PROJECT_NAME}}
+description: AI-powered development workflow for {{PROJECT_NAME}} projects with detailed breakdown and dependency tracking.
+globs:
+alwaysApply: true
+---
+
 
 ## Task Management Integration (Optional)
 

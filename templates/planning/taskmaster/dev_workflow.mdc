@@ -1,3 +1,10 @@
+---
+title: TaskMaster Development Workflow for {{PROJECT_NAME}}
+description: AI-powered task management for complex {{PROJECT_NAME}} projects with detailed breakdown and dependency tracking.
+globs:
+alwaysApply: true
+---
+
 # TaskMaster Development Workflow for {{PROJECT_NAME}}
 
 ## Task Management: AI-Powered
@@ -87,10 +94,5 @@ chmod +x .git/hooks/pre-commit
 - Use `--research` flag for complex/unfamiliar tasks
 
 ---
-
 *See `taskmaster_reference.mdc` for complete tool reference.*
-
-  ```
-
----
 *This workflow provides a general guideline. Adapt it based on your specific project needs, tools, and team practices.*

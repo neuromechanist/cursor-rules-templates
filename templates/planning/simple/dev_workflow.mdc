@@ -1,3 +1,10 @@
+---
+title: Simple Planning Workflow for {{PROJECT_NAME}}
+description: Plan-driven development for {{PROJECT_NAME}} projects with detailed breakdown and dependency tracking.
+globs:
+alwaysApply: true
+---
+
 # Simple Planning Workflow for {{PROJECT_NAME}}
 
 ## Task Management: plan.md-Driven
