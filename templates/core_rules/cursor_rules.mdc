@@ -1,43 +1,121 @@
+# AI-Assisted Development Workflow for {{PROJECT_NAME}}
+
+## Task Management Integration (Optional)
+
+**Task Master (Complex Projects):**
+- MCP Server tools: `get_tasks`, `add_subtask`, `next_task`, `update_subtask`
+- CLI fallback: `task-master list`, `task-master next`, `task-master show <id>`
+
+**Simple Planning (Small Projects):**
+- Use `plan.md` with markdown checkboxes: `- [ ]` → `- [x]`
+
+## Core Development Process
+
+### 1. Feature Branch Workflow
+```bash
+git checkout -b "feature/short-description"  # Descriptive names, no task IDs
+```
+
+### 2. Implementation Cycle
+- **Understand:** Review task/issue requirements thoroughly
+- **Plan:** Identify code changes and implementation steps
+- **Code:** Follow project standards and best practices
+- **Test:** Verify implementation meets requirements
+- **Commit:** Stage and commit with descriptive messages
+
+### 3. Pre-Commit Quality Checks
+- **Python projects:** Use `templates/config/pre-commit` script
+  - Runs `ruff check --fix --unsafe-fixes` on staged Python files only
+  - Runs `ruff format` on staged files
+  - Re-stages modified files automatically
+- **Install:** `cp templates/config/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit`
+
+### 4. Commit Standards
+```bash
+git commit -m "feat: implement user auth (plan.md task 3)"
+# Use: feat:, fix:, docs:, refactor:, test:
+# Reference tasks when applicable
+# Keep first line under 50 characters
+```
+
+### 5. Pull Request Process
+```bash
+git push origin <branch-name>
+# Create PR with descriptive title (no task IDs)
+# Body: detail changes, reference issues/tasks optionally
+```
+
+## Task Status Management
+
+**Task Master:**
+- Set status: `update_task_status --status=in-progress|done`
+- Log progress: `update_subtask --prompt="implementation notes"`
+
+**Simple Planning:**
+- Mark progress: `- [⚠️] Task name` (in progress) → `- [x] Task name` (done)
+
+## Code Quality Standards
+
+### Python Projects
+- **Linting:** ruff (configured in pyproject.toml)
+- **Testing:** pytest with coverage
+- **Type hints:** Use mypy for type checking
+- **Pre-commit:** Automatic ruff formatting on staged files
+
+### General Standards
+- Write clear, self-documenting code
+- Use meaningful variable/function names
+- Add docstrings for public APIs
+- Test core functionality
+- Keep functions focused and small
+
+## Environment Management
+```bash
+# Activate environment before running commands
+conda activate my-env  # or source .venv/bin/activate
+pytest
+mkdocs build
+```
+
+## Iterative Development (AI Guidelines)
+
+### For AI Assistants
+- **Proactive:** Continue to next logical step unless clarification needed
+- **Quality:** Run pre-commit checks before final commit
+- **Documentation:** Update relevant docs when adding features
+- **Testing:** Ensure tests pass before marking tasks complete
+
+### Code Analysis Techniques
+- **Symbol Search:** Use grep/ripgrep for exported functions/classes
+- **Top-level exports:** `rg "export (function|const|class)"` (JS/TS), `rg "^def \w+\("` (Python)
+
+## Rule Writing Standards (For Project Customization)
+
+### Effective Rule Structure
+```yaml
 ---
-description: Standards for writing effective Cursor AI rules
-globs:
-alwaysApply: false
+description: Brief, specific purpose
+globs: ["*.py", "src/**"]  # Optional file patterns
+alwaysApply: true  # true for core rules
 ---
-# Cursor Rule Writing Standards
+```
 
-- **Effective Rule Structure:**
-  - YAML frontmatter with `description`, `globs`, `alwaysApply` fields
-  - Clear goal statement at the top
-  - Bullet-point format for specific requirements
-  - Practical examples when helpful
-  - Cross-references to related rules using `[name](mdc:filename.mdc)`
+### Content Guidelines
+- **Specific and actionable** instructions
+- **Bullet points** for clarity
+- **Tool/command references** when relevant
+- **Cross-references:** `[Rule Name](mdc:filename.mdc)`
+- **Examples** for complex concepts
 
-- **Rule Content Guidelines:**
-  - Be specific and actionable
-  - Focus on AI-understandable instructions
-  - Avoid verbose explanations
-  - Include tool/command references when relevant
-  - Keep examples concise but complete
+### Rule Maintenance
+- Update based on actual code patterns
+- Remove outdated practices
+- Test rules for AI effectiveness
+- Keep examples current and complete
 
-- **YAML Frontmatter:**
-  ```yaml
-  ---
-  description: Brief description of rule purpose
-  globs: # File patterns where rule applies (optional)
-  alwaysApply: false # true for core rules, false for optional
-  ---
-  ```
+---
 
-- **Cross-References:**
-  - Use `[Rule Name](mdc:rule_file.mdc)` format
-  - Reference related rules for context
-  - Keep references current when files change
-
-- **Rule Maintenance:**
-  - Update based on actual code patterns
-  - Remove outdated practices
-  - Add examples from real implementations
-  - Test rules for AI effectiveness
+*Adapt this workflow for {{PROJECT_NAME}}'s specific needs, team size, and technology stack.*
 
 
 ---
