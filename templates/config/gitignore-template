@@ -5,6 +5,7 @@
 .vscode/
 .idea/
 .cursor/
+.claude/
 *.swp
 *.swo
 .DS_Store
