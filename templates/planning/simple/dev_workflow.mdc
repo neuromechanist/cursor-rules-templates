@@ -7,37 +7,56 @@ alwaysApply: true
 
 # Simple Planning Workflow for {{PROJECT_NAME}}
 
+## Documentation-Driven Development
+
+### Core Documents
+- **plan.md**: Main task tracking and development phases
+- **research.md**: Solution exploration and technical references
+- **ideas.md**: Abstract concepts and design exploration
+- **scratch_history.md**: Failed approaches and lessons learned
+
+### Document Usage
+1. **Before starting:** Check ideas.md for design decisions
+2. **When stuck:** Consult research.md for solutions
+3. **During work:** Update plan.md task status
+4. **After failures:** Document in scratch_history.md
+
 ## Task Management: plan.md-Driven
 
 ### Plan Tracking
 - `- [ ]` = Pending
 - `- [⚠️]` = In Progress  
+- `- [🔬]` = Researching (see research.md)
 - `- [x]` = Completed
 - Add notes below tasks for decisions/blockers
+- Reference other docs when relevant: `(see research.md#section)`
 
 ### Daily Workflow
-1. **Check plan.md:** Review current priorities
+1. **Check docs:** Review plan.md priorities, ideas.md for context
 2. **Pick task:** Select highest priority uncompleted item
-3. **Mark in-progress:** `- [⚠️] Task name`
-4. **Implement:** Code following task requirements
-5. **Test:** Verify implementation
-6. **Commit:** NO need to reference plan.md task in message (length <50 characters, no newlines).
-7. **Mark complete:** `- [x] Task name`
-8. **Update plan:** Add notes or new tasks (if applicable)
+3. **Mark status:** `- [⚠️]` or `- [🔬]` if researching
+4. **Research if needed:** Update research.md with findings
+5. **Implement:** Code following task requirements
+6. **Test:** Verify implementation
+7. **Commit:** Concise message <50 chars, no emojis
+8. **Mark complete:** `- [x] Task name`
+9. **Document:** Update relevant docs (plan/research/scratch)
 
 ## Git Standards
 
 ### Commits
 ```bash
-git commit -m "feat: implement user auth (plan.md task 3)"
-# Use: feat:, fix:, docs:, refactor:, test:
-# Reference plan.md tasks when helpful
+git commit -m "feat: implement user auth"
+# Use: feat:, fix:, docs:, refactor:, test:, chore:
+# Keep under 50 characters, no emojis
+# Reference tasks only when critical for context
 ```
 
 ### Branch Strategy
-- Feature branches for larger tasks: `git checkout -b "feature/description"`
-- Direct commits to main for small fixes
+- Feature branches for multi-step tasks: `feature/short-description`
+- Direct commits to main for small fixes and docs
 - Keep commits ATOMIC and FOCUSED
+- Test before merging to main
 
 ## Code Quality
 
@@ -49,11 +68,12 @@ chmod +x .git/hooks/pre-commit
 ```
 
 ### Standards
-- Follow language style guides (PEP 8, etc.)
+- Follow existing code patterns and conventions
 - Write self-documenting code with clear names
-- Add type hints and docstrings
-- Test core functionality
-- Keep functions focused
+- Add type hints and minimal docstrings
+- Test core functionality (no mocks preferred)
+- Keep functions focused and simple
+- Document complex logic in research.md
 
 ### File Organization
 ```
@@ -61,20 +81,58 @@ chmod +x .git/hooks/pre-commit
 ├── src/{{PROJECT_NAME}}/     # Source code
 ├── tests/                    # Test files
 ├── docs/                     # Documentation
-├── plan.md                   # Development plan
+├── plan.md                   # Task tracking and phases
+├── research.md               # Technical solutions and references
+├── ideas.md                  # Design decisions and concepts
+├── scratch_history.md        # Failed attempts and lessons
 ├── pyproject.toml           # Project config
-└── README.md                # Project overview
+├── README.md                # Project overview
+└── .gitignore               # Include: plan.md, *.md (except README)
 ```
 
-## Integration Tips
+## Documentation Guidelines
 
-### Plan Updates
-- Version control plan.md changes
-- Update estimates and notes as you work
-- Add new tasks when discovered
-- Remove/modify tasks as requirements change
+### plan.md Updates
+- Track task status in real-time
+- Add implementation notes below tasks
+- Reference other docs: `(see research.md#api-design)`
+- Keep phases organized and current
+
+### research.md Structure
+```markdown
+# Research Notes
+
+## Problem: [Brief description]
+### Explored Solutions:
+1. **Approach A**: [Details, pros/cons]
+2. **Approach B**: [Details, pros/cons]
+### Decision: [What was chosen and why]
+### References: [Links, docs, examples]
+```
+
+### ideas.md Format
+```markdown
+# Design Ideas
+
+## Feature: [Name]
+### Concept: [High-level description]
+### Rationale: [Why this approach]
+### Considerations: [Trade-offs, alternatives]
+```
+
+### scratch_history.md Purpose
+```markdown
+# Failed Attempts Log
+
+## Attempt: [What was tried]
+### Date: [When]
+### Issue: [What went wrong]
+### Lesson: [What was learned]
+### Alternative: [What worked instead]
+```
 
 ### PR Process
-- Reference plan.md tasks in PR descriptions
-- Update plan.md status when PR merged
-- Review plan.md changes as part of code review
+- Create descriptive PR titles (no task IDs)
+- Reference relevant documentation in PR body
+- Update all docs (plan/research/ideas) when merged
+- Include test results and validation
