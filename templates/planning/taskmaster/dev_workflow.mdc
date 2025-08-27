@@ -7,6 +7,20 @@ alwaysApply: true
 
 # TaskMaster Development Workflow for {{PROJECT_NAME}}
 
+## Documentation-Driven Development
+
+### Core Documents
+- **TaskMaster DB**: Primary task tracking and dependencies
+- **research.md**: Solution exploration and technical references
+- **ideas.md**: Abstract concepts and design exploration  
+- **scratch_history.md**: Failed approaches and lessons learned
+
+### Document Integration
+- TaskMaster handles task management
+- Use research.md for technical exploration
+- Document design decisions in ideas.md
+- Track failures in scratch_history.md
+
 ## Task Management: AI-Powered
 
 ### Setup
@@ -32,14 +46,16 @@ task-master set-status <id> --status=in-progress|done
 ## Daily Workflow
 
 1. **Find next task:** `next_task` / `task-master next`
-2. **Review details:** `get_task` / `task-master show <id>`
+2. **Review context:** Check ideas.md and research.md if needed
 3. **Start work:** Set status to in-progress
-4. **Create branch:** `git checkout -b "feature/description"`
-5. **Implement:** Code following task requirements
-6. **Log progress:** `update_subtask --prompt="implementation notes"`
-7. **Test & commit:** NO need to reference task ID in commit (length <50 characters, no newlines). Commits should be atomic and focused.
-8. **Mark complete:** Set status to done
-9. **Create PR:** Reference task in description with Concise Title and Description
+4. **Research if blocked:** Update research.md with findings
+5. **Create branch:** `git checkout -b "feature/short-description"`
+6. **Implement:** Code following task requirements
+7. **Log progress:** `update_subtask --prompt="implementation notes"`
+8. **Test & commit:** Concise message <50 chars, no emojis
+9. **Mark complete:** Set status to done
+10. **Update docs:** Document learnings in appropriate files
+11. **Create PR:** Descriptive title, reference task in body
 
 ## Task Breakdown & Dependencies
 
@@ -65,34 +81,66 @@ task-master validate-dependencies
 
 ### Commits
 ```bash
-git commit -m "feat: implement auth system (Task 4.2)"
-# Reference task IDs for traceability
+git commit -m "feat: implement auth system"
+# Use: feat:, fix:, docs:, refactor:, test:, chore:
+# Keep under 50 characters, no emojis
+# Task IDs optional, only when critical
 ```
 
 ### PRs
-- **Title:** Descriptive summary (no task IDs)
-- **Body:** "Implements Task 4" or "Closes #123. Implements Task 4.2"
+- **Title:** Clear, descriptive summary
+- **Body:** Reference task: "Implements Task 4"
+- **Testing:** Include validation results
+- **Docs:** Note any doc updates needed
 
-## Pre-commit Setup (Python)
+## Code Quality
+
+### Pre-commit Setup (Python)
 ```bash
 cp templates/config/pre-commit .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
-# Automatic ruff check/format on staged Python files
+# Runs ruff check --fix --unsafe-fixes on staged files
+# Runs ruff format on staged files
+# Auto-restages modified files
 ```
+
+### Standards
+- Follow existing code patterns
+- Prefer real tests over mocks
+- Document complex logic in research.md
+- Keep functions focused and simple
 
 ## AI Guidelines
 
 ### For AI Assistants
 - Use MCP tools over CLI when available
-- Update subtasks regularly with implementation details
-- Continue to next logical task unless clarification needed
-- Run quality checks before marking tasks complete
+- Check research.md and ideas.md for context
+- Update subtasks with implementation details
+- Document blockers in scratch_history.md
+- Continue to next task unless blocked
+- Run quality checks before completing
 
 ### Progress Logging
-- Log key decisions in subtasks
-- Update task details when requirements change
-- Use `--research` flag for complex/unfamiliar tasks
+- Log decisions in TaskMaster subtasks
+- Update research.md with technical findings
+- Use `--research` flag for exploration tasks
+- Reference docs in subtask notes when relevant
+
+### File Organization
+```
+{{PROJECT_NAME}}/
+├── src/{{PROJECT_NAME}}/     # Source code
+├── tests/                    # Test files
+├── docs/                     # Documentation
+├── .taskmaster/              # TaskMaster database
+├── research.md               # Technical solutions
+├── ideas.md                  # Design decisions
+├── scratch_history.md        # Failed attempts
+├── pyproject.toml           # Project config
+├── README.md                # Project overview
+└── .gitignore               # Include: *.md (except README)
+```
 
 ---
 *See `taskmaster_reference.mdc` for complete tool reference.*
-*This workflow provides a general guideline. Adapt it based on your specific project needs, tools, and team practices.*
+*Adapt this workflow to your project needs and team practices.*
