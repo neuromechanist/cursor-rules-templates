@@ -1,6 +1,6 @@
 # TaskMaster Planning Approach
 
-**Goal:** AI-powered task management for complex {{PROJECT_NAME}} projects with detailed breakdown and dependency tracking.
+**Goal:** AI-powered task management combined with documentation-driven development for complex {{PROJECT_NAME}} projects.
 
 ## When to Use
 
@@ -30,7 +30,10 @@ task-master parse-prd scripts/prd.txt --num-tasks=15 --research
 {{PROJECT_NAME}}/
 ├── tasks/tasks.json       # Main task database
 ├── scripts/prd.txt        # Requirements document
-└── .taskmaster/           # Configuration
+├── .taskmaster/           # Configuration
+├── research.md            # Technical solutions
+├── ideas.md               # Design concepts
+└── scratch_history.md     # Failed attempts
 ```
 
 ## Daily Workflow
@@ -39,11 +42,18 @@ task-master parse-prd scripts/prd.txt --num-tasks=15 --research
 # Find next task
 task-master next
 
+# Check context (if needed)
+# Review ideas.md and research.md for background
+
 # Start work
 task-master set-status <task-id> --status=in-progress
 
 # Update progress (AI-powered)
 task-master update-subtask <task-id>.<subtask-id> --prompt="Implementation notes"
+
+# Document learnings
+# Update research.md with solutions
+# Log failures in scratch_history.md
 
 # Complete task
 task-master set-status <task-id> --status=done
@@ -81,21 +91,43 @@ task-master validate-dependencies
 ## Git Integration
 
 ```bash
-# Reference tasks in commits
-git commit -m "feat: implement auth (Task 4.2)"
+# Concise commits (no task IDs needed)
+git commit -m "feat: implement auth system"
 
-# Add task context to PRs  
+# Reference tasks in PR body only
 echo "Implements Task 4" >> pr-description.md
 ```
 
 ## Best Practices
 
+### Task Management
 - **Start broad** with high-level features in PRD
 - **Use `--research` flag** for AI-enhanced analysis
 - **Break down incrementally** as you learn more
 - **Update subtasks** with implementation details
 - **Keep status current** for team coordination
 
+### Documentation Integration
+- **Capture ideas** in ideas.md before tasks
+- **Research solutions** and log in research.md
+- **Document failures** immediately in scratch_history.md
+- **Cross-reference** between TaskMaster and docs
+- **Learn from history** to avoid repeated mistakes
+
+## Documentation Files
+
+### Supporting Documents
+- **research.md:** Technical exploration and references
+- **ideas.md:** High-level design and concepts
+- **scratch_history.md:** Failed attempts and lessons
+
+### When to Use Each
+- **TaskMaster:** Task tracking and dependencies
+- **research.md:** When exploring technical solutions
+- **ideas.md:** Before breaking down into tasks
+- **scratch_history.md:** After failed attempts
+
 ---
 
-*See `taskmaster_reference.mdc` for complete MCP tool and CLI command reference.* 
+*See `taskmaster_reference.mdc` for complete MCP tool and CLI command reference.*
+*Documentation-driven development + TaskMaster = comprehensive project tracking.* 
