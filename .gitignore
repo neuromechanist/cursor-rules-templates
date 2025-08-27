@@ -20,6 +20,10 @@ node_modules/
 # Claude
 .claude/
 Claude.md
+CLAUDE.md
 
 # sample project
 sample_rules/
+
+# Development context (local only)
+.context/

@@ -9,17 +9,17 @@ alwaysApply: true
 
 ## Documentation-Driven Development
 
-### Core Documents
-- **plan.md**: Main task tracking and development phases
-- **research.md**: Solution exploration and technical references
-- **ideas.md**: Abstract concepts and design exploration
-- **scratch_history.md**: Failed approaches and lessons learned
+### Core Documents (in .context/)
+- **.context/plan.md**: Main task tracking and development phases
+- **.context/research.md**: Solution exploration and technical references
+- **.context/ideas.md**: Abstract concepts and design exploration
+- **.context/scratch_history.md**: Failed approaches and lessons learned
 
 ### Document Usage
-1. **Before starting:** Check ideas.md for design decisions
-2. **When stuck:** Consult research.md for solutions
-3. **During work:** Update plan.md task status
-4. **After failures:** Document in scratch_history.md
+1. **Before starting:** Check .context/ideas.md for design decisions
+2. **When stuck:** Consult .context/research.md for solutions
+3. **During work:** Update .context/plan.md task status
+4. **After failures:** Document in .context/scratch_history.md
 
 ## Task Management: plan.md-Driven
 
@@ -32,10 +32,10 @@ alwaysApply: true
 - Reference other docs when relevant: `(see research.md#section)`
 
 ### Daily Workflow
-1. **Check docs:** Review plan.md priorities, ideas.md for context
+1. **Check docs:** Review .context/plan.md priorities, .context/ideas.md for context
 2. **Pick task:** Select highest priority uncompleted item
 3. **Mark status:** `- [⚠️]` or `- [🔬]` if researching
-4. **Research if needed:** Update research.md with findings
+4. **Research if needed:** Update .context/research.md with findings
 5. **Implement:** Code following task requirements
 6. **Test:** Verify implementation
 7. **Commit:** Concise message <50 chars, no emojis
@@ -78,16 +78,17 @@ chmod +x .git/hooks/pre-commit
 ### File Organization
 ```
 {{PROJECT_NAME}}/
+├── .context/                 # Development context (gitignored)
+│   ├── plan.md              # Task tracking and phases
+│   ├── research.md          # Technical solutions
+│   ├── ideas.md             # Design concepts
+│   └── scratch_history.md   # Failed attempts
 ├── src/{{PROJECT_NAME}}/     # Source code
 ├── tests/                    # Test files
-├── docs/                     # Documentation
-├── plan.md                   # Task tracking and phases
-├── research.md               # Technical solutions and references
-├── ideas.md                  # Design decisions and concepts
-├── scratch_history.md        # Failed attempts and lessons
+├── docs/                     # Public documentation
 ├── pyproject.toml           # Project config
 ├── README.md                # Project overview
-└── .gitignore               # Include: plan.md, *.md (except README)
+└── .gitignore               # Include: .context/
 ```
 
 ## Documentation Guidelines
@@ -97,6 +98,7 @@ chmod +x .git/hooks/pre-commit
 - Add implementation notes below tasks
 - Reference other docs: `(see research.md#api-design)`
 - Keep phases organized and current
+- Location: .context/plan.md
 
 ### research.md Structure
 ```markdown
