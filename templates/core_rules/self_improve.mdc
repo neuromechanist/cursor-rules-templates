@@ -12,16 +12,16 @@ alwaysApply: false
 
 ## Improvement Triggers
 - Pattern used 3+ times → Create rule
-- Common failures in scratch_history.md → Add prevention rule
-- Successful research.md solutions → Standardize
-- Mature ideas.md concepts → Formalize
+- Common failures in .context/scratch_history.md → Add prevention rule
+- Successful .context/research.md solutions → Standardize
+- Mature .context/ideas.md concepts → Formalize
 - Repeated PR feedback → Document standard
 
 ## Analysis Sources
-1. **scratch_history.md:** Mine for anti-patterns
-2. **research.md:** Extract proven solutions  
-3. **ideas.md:** Promote design principles
-4. **plan.md:** Identify workflow patterns
+1. **.context/scratch_history.md:** Mine for anti-patterns
+2. **.context/research.md:** Extract proven solutions  
+3. **.context/ideas.md:** Promote design principles
+4. **.context/plan.md:** Identify workflow patterns
 5. **Code reviews:** Track common feedback
 
 ## Rule Updates
@@ -52,7 +52,7 @@ alwaysApply: false
 ## Learning-Driven Creation
 **Extract wisdom, not just fixes:**
 ```python
-# From scratch_history.md failure:
+# From .context/scratch_history.md failure:
 # "Database connections leaked after 24hrs"
 # THINK: Why? Resource management issue.
 # LESSON: Explicit cleanup isn't reliable.
@@ -69,8 +69,8 @@ with get_db() as db:  # Guaranteed cleanup
 - Is this a symptom of a bigger pattern?
 
 ## Thoughtful Maintenance Process
-1. **Weekly:** Review scratch_history.md - What patterns emerged?
-2. **After features:** Mine research.md - What worked well?
+1. **Weekly:** Review .context/scratch_history.md - What patterns emerged?
+2. **After features:** Mine .context/research.md - What worked well?
 3. **Post-refactor:** Update rules - What changed fundamentally?
 4. **Quarterly:** Audit all - Are rules still serving us?
 

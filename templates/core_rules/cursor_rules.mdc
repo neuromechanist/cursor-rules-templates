@@ -11,21 +11,21 @@ alwaysApply: true
 **During work:** Maintain perspective, think about edge cases, document learnings.
 
 ## Documentation-Driven Development
-**Core Docs:** `plan.md` (tasks), `research.md` (solutions), `ideas.md` (concepts), `scratch_history.md` (failures)  
-**Integration:** These work together - check ideas for vision, research for solutions, plan for tasks, scratch for pitfalls
+**Core Docs (in .context/):** `plan.md` (tasks), `research.md` (solutions), `ideas.md` (concepts), `scratch_history.md` (failures)  
+**Integration:** These work together - check .context/ideas.md for vision, .context/research.md for solutions, .context/plan.md for tasks, .context/scratch_history.md for pitfalls
 
 ## Task Management
 **Simple:** `plan.md` with `[ ]`→`[⚠️]`→`[🔬]`→`[x]`  
 **Complex:** TaskMaster CLI/MCP tools for dependencies
 
 ## Development Flow (Think Through Each Step)
-1. **Understand:** Review requirements thoroughly, check ideas.md for context
+1. **Understand:** Review requirements thoroughly, check .context/ideas.md for context
 2. **Research:** Explore solutions, update research.md with findings
 3. **Branch:** `git checkout -b feature/short-name` 
 4. **Plan:** Identify changes and implications
 5. **Code:** Follow patterns, think about maintainability
 6. **Test:** Real tests only (no mocks) - see [`testing.mdc`](mdc:testing.mdc)
-7. **Document:** Log failures in scratch_history.md immediately
+7. **Document:** Log failures in .context/scratch_history.md immediately
 8. **Commit:** `feat: concise message` (<50 chars, atomic)
 9. **PR:** Descriptive title, reference context in body
 
@@ -50,15 +50,15 @@ chmod +x .git/hooks/pre-commit
 
 ## AI Guidelines (You're a Thoughtful Developer)
 **Before starting:**
-- Review ALL context docs (ideas→research→plan)
+- Review ALL .context docs (ideas→research→plan)
 - Understand the bigger picture and goals
 - Consider architectural implications
 
 **During development:**
 - Be proactive but thoughtful
-- Document discoveries in research.md
-- Log ALL failures in scratch_history.md
-- Update relevant docs as you learn
+- Document discoveries in .context/research.md
+- Log ALL failures in .context/scratch_history.md
+- Update relevant .context docs as you learn
 
 **Quality mindset:**
 - Run pre-commit checks before completion
@@ -81,8 +81,8 @@ alwaysApply: true
 ---
 ```
 **Extract wisdom from:**
-- scratch_history.md failures → prevention rules
-- research.md solutions → best practices
+- .context/scratch_history.md failures → prevention rules
+- .context/research.md solutions → best practices
 - Repeated patterns → standards
 - Keep rules actionable and tested
 
