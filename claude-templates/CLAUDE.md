@@ -5,14 +5,14 @@
 **Tech Stack:** Python 3.11+, [frameworks]
 **Architecture:** [Key design decisions]
 
-## Environment Setup [DAILY]
+## Environment Setup
 ```bash
 conda activate {{ENV_NAME}}  # or source .venv/bin/activate
 pip install -e .
 pytest  # Real tests only - NO MOCKS
 ```
 
-## Development Workflow [FOLLOW EXACTLY]
+## Development Workflow
 1. **Check context:** Review .context/plan.md for current tasks
 2. **Understand deeply:** Check .context/ideas.md for design decisions  
 3. **Research if needed:** Update .context/research.md with findings
@@ -23,52 +23,52 @@ pytest  # Real tests only - NO MOCKS
 8. **Commit:** Atomic, <50 chars, no emojis
 9. **PR:** Reference context and issue
 
-## Critical Principles [NEVER COMPROMISE]
+## [CRITICAL] Core Principles - Never Compromise
 
-### NO MOCKS - Test Reality Only
+### [FUNDAMENTAL] NO MOCKS - Test Reality Only
 - Use real data or skip tests entirely
 - Docker for test databases
 - Ask user for sample data if needed
 **Details:** .rules/testing.md
 
-### Commits & Git [EVERY COMMIT]
+### Commits & Git
 - Atomic commits, focused changes
 - Messages <50 chars, no emojis
 - Feature branches for multi-step work
 **Details:** .rules/git.md
 
-### Documentation [WRITE FOR FUTURE SELF]
+### Documentation
 - Examples > explanations
 - README gets someone running in <5 minutes
 **Details:** .rules/documentation.md
 
-## Think Like a Senior Developer [ALWAYS]
+## Think Like a Senior Developer
 - Keep the big picture in mind
 - Ask: "Will this prevent a 3am wake-up call?"
 - Document learnings → .context/scratch_history.md
 - Extract patterns (3+ uses) → Create rules
 **See:** .rules/self_improve.md for learning process
 
-## Rules Directory [CHECK THESE]
+## [REFERENCE] Rules Directory
 
-### Core Standards [ALWAYS APPLY]
+### Core Standards
 - `.rules/testing.md` - Complete NO MOCK policy
 - `.rules/self_improve.md` - Learning from projects
 - `.rules/documentation.md` - MkDocs setup
 
-### Language & Tools [AS NEEDED]
+### Language & Tools
 - `.rules/python.md` - Style, linting, type hints
 - `.rules/javascript.md` - ES6+, TypeScript
 - `.rules/ci_cd.md` - GitHub Actions setup
 - `.rules/{{framework}}.md` - Framework patterns
 
-## Context Files [UPDATE REGULARLY]
+## Context Files
 - `.context/plan.md` - Current tasks and phases
 - `.context/research.md` - Technical explorations
 - `.context/ideas.md` - Design concepts
 - `.context/scratch_history.md` - Failed attempts
 
-## Quick Commands [COMMON TASKS]
+## Quick Commands
 ```bash
 # Run tests (real data only)
 pytest tests/ --cov
