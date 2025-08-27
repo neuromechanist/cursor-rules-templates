@@ -19,7 +19,7 @@ node_modules/
 
 # Claude (for actual projects, not templates)
 .claude/
-# Note: CLAUDE.md in root is ignored, but templates are tracked
+CLAUDE.md
 
 # sample project
 sample_rules/
