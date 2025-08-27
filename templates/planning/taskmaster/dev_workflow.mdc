@@ -10,16 +10,16 @@ alwaysApply: true
 ## Documentation-Driven Development
 
 ### Core Documents
-- **TaskMaster DB**: Primary task tracking and dependencies
-- **research.md**: Solution exploration and technical references
-- **ideas.md**: Abstract concepts and design exploration  
-- **scratch_history.md**: Failed approaches and lessons learned
+- **TaskMaster DB**: Primary task tracking (.taskmaster/)
+- **.context/research.md**: Solution exploration and technical references
+- **.context/ideas.md**: Abstract concepts and design exploration  
+- **.context/scratch_history.md**: Failed approaches and lessons learned
 
 ### Document Integration
 - TaskMaster handles task management
-- Use research.md for technical exploration
-- Document design decisions in ideas.md
-- Track failures in scratch_history.md
+- Use .context/research.md for technical exploration
+- Document design decisions in .context/ideas.md
+- Track failures in .context/scratch_history.md
 
 ## Task Management: AI-Powered
 
@@ -46,15 +46,15 @@ task-master set-status <id> --status=in-progress|done
 ## Daily Workflow
 
 1. **Find next task:** `next_task` / `task-master next`
-2. **Review context:** Check ideas.md and research.md if needed
+2. **Review context:** Check .context/ideas.md and .context/research.md if needed
 3. **Start work:** Set status to in-progress
-4. **Research if blocked:** Update research.md with findings
+4. **Research if blocked:** Update .context/research.md with findings
 5. **Create branch:** `git checkout -b "feature/short-description"`
 6. **Implement:** Code following task requirements
 7. **Log progress:** `update_subtask --prompt="implementation notes"`
 8. **Test & commit:** Concise message <50 chars, no emojis
 9. **Mark complete:** Set status to done
-10. **Update docs:** Document learnings in appropriate files
+10. **Update docs:** Document learnings in .context/ files
 11. **Create PR:** Descriptive title, reference task in body
 
 ## Task Breakdown & Dependencies
@@ -122,23 +122,24 @@ chmod +x .git/hooks/pre-commit
 
 ### Progress Logging
 - Log decisions in TaskMaster subtasks
-- Update research.md with technical findings
+- Update .context/research.md with technical findings
 - Use `--research` flag for exploration tasks
-- Reference docs in subtask notes when relevant
+- Reference .context docs in subtask notes when relevant
 
 ### File Organization
 ```
 {{PROJECT_NAME}}/
+├── .context/                 # Development context (gitignored)
+│   ├── research.md          # Technical solutions
+│   ├── ideas.md             # Design decisions
+│   └── scratch_history.md   # Failed attempts
+├── .taskmaster/              # TaskMaster database
 ├── src/{{PROJECT_NAME}}/     # Source code
 ├── tests/                    # Test files
-├── docs/                     # Documentation
-├── .taskmaster/              # TaskMaster database
-├── research.md               # Technical solutions
-├── ideas.md                  # Design decisions
-├── scratch_history.md        # Failed attempts
+├── docs/                     # Public documentation
 ├── pyproject.toml           # Project config
 ├── README.md                # Project overview
-└── .gitignore               # Include: *.md (except README)
+└── .gitignore               # Include: .context/
 ```
 
 ---

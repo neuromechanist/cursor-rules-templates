@@ -28,12 +28,13 @@ task-master parse-prd scripts/prd.txt --num-tasks=15 --research
 **Project structure created:**
 ```
 {{PROJECT_NAME}}/
+├── .context/              # Development context (gitignored)
+│   ├── research.md       # Technical solutions
+│   ├── ideas.md          # Design concepts
+│   └── scratch_history.md # Failed attempts
+├── .taskmaster/           # TaskMaster configuration
 ├── tasks/tasks.json       # Main task database
-├── scripts/prd.txt        # Requirements document
-├── .taskmaster/           # Configuration
-├── research.md            # Technical solutions
-├── ideas.md               # Design concepts
-└── scratch_history.md     # Failed attempts
+└── scripts/prd.txt        # Requirements document
 ```
 
 ## Daily Workflow
@@ -43,7 +44,7 @@ task-master parse-prd scripts/prd.txt --num-tasks=15 --research
 task-master next
 
 # Check context (if needed)
-# Review ideas.md and research.md for background
+# Review .context/ideas.md and .context/research.md for background
 
 # Start work
 task-master set-status <task-id> --status=in-progress
@@ -52,8 +53,8 @@ task-master set-status <task-id> --status=in-progress
 task-master update-subtask <task-id>.<subtask-id> --prompt="Implementation notes"
 
 # Document learnings
-# Update research.md with solutions
-# Log failures in scratch_history.md
+# Update .context/research.md with solutions
+# Log failures in .context/scratch_history.md
 
 # Complete task
 task-master set-status <task-id> --status=done
@@ -108,24 +109,24 @@ echo "Implements Task 4" >> pr-description.md
 - **Keep status current** for team coordination
 
 ### Documentation Integration
-- **Capture ideas** in ideas.md before tasks
-- **Research solutions** and log in research.md
-- **Document failures** immediately in scratch_history.md
-- **Cross-reference** between TaskMaster and docs
+- **Capture ideas** in .context/ideas.md before tasks
+- **Research solutions** and log in .context/research.md
+- **Document failures** immediately in .context/scratch_history.md
+- **Cross-reference** between TaskMaster and .context docs
 - **Learn from history** to avoid repeated mistakes
 
 ## Documentation Files
 
-### Supporting Documents
-- **research.md:** Technical exploration and references
-- **ideas.md:** High-level design and concepts
-- **scratch_history.md:** Failed attempts and lessons
+### Supporting Documents (in .context/)
+- **.context/research.md:** Technical exploration and references
+- **.context/ideas.md:** High-level design and concepts
+- **.context/scratch_history.md:** Failed attempts and lessons
 
 ### When to Use Each
 - **TaskMaster:** Task tracking and dependencies
-- **research.md:** When exploring technical solutions
-- **ideas.md:** Before breaking down into tasks
-- **scratch_history.md:** After failed attempts
+- **.context/research.md:** When exploring technical solutions
+- **.context/ideas.md:** Before breaking down into tasks
+- **.context/scratch_history.md:** After failed attempts
 
 ---
 
