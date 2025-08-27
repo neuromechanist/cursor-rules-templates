@@ -8,12 +8,13 @@
 - cursor-templates/core_rules/ci_cd.mdc
 
 ## Planning Approach
-# Default: Simple plan-based development
-- cursor-templates/planning/simple/dev_workflow.mdc
+# Default: Plan-based development (.context/plan.md)
+- cursor-templates/planning/default/dev_workflow.mdc
 
-# Advanced: TaskMaster for complex projects
-# - cursor-templates/planning/taskmaster/dev_workflow.mdc
-# - cursor-templates/planning/taskmaster/taskmaster_reference.mdc
+# Advanced: TaskMaster for complex multi-dependency projects
+# Uncomment to use:
+# - cursor-templates/planning/advanced-taskmaster/dev_workflow.mdc
+# - cursor-templates/planning/advanced-taskmaster/taskmaster_reference.mdc
 
 ## Project-Specific Rules
 # Add your custom .mdc files here:
