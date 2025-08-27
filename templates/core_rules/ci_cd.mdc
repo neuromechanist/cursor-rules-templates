@@ -1,5 +1,5 @@
 ---
-description: CI/CD automation standards with quality gates mindset
+description: CI/CD automation standards using GitHub Actions
 globs:
 alwaysApply: false
 ---

@@ -1,5 +1,5 @@
 ---
-description: Testing standards with strict NO MOCK policy and reasoning
+description: Testing standards with strict NO MOCK policy
 globs:
 alwaysApply: false
 ---

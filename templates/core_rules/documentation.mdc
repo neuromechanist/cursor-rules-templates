@@ -1,5 +1,5 @@
 ---
-description: Documentation standards with user empathy
+description: MkDocs documentation standards
 globs:
 alwaysApply: false
 ---
