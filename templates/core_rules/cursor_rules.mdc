@@ -6,14 +6,24 @@ alwaysApply: true
 ---
 
 
-## Task Management Integration (Optional)
+## Documentation-Driven Development
 
-**Task Master (Complex Projects):**
+### Core Documents
+- **plan.md** / **TaskMaster**: Task tracking and phases
+- **research.md**: Technical solutions and references
+- **ideas.md**: Design concepts and exploration
+- **scratch_history.md**: Failed attempts and lessons
+
+### Task Management Options
+
+**TaskMaster (Complex Projects):**
 - MCP Server tools: `get_tasks`, `add_subtask`, `next_task`, `update_subtask`
 - CLI fallback: `task-master list`, `task-master next`, `task-master show <id>`
+- Integrates with research.md for technical context
 
 **Simple Planning (Small Projects):**
 - Use `plan.md` with markdown checkboxes: `- [ ]` → `- [x]`
+- Reference other docs: `(see research.md#section)`
 
 ## Core Development Process
 
@@ -23,10 +33,12 @@ git checkout -b "feature/short-description"  # Descriptive names, no task IDs
 ```
 
 ### 2. Implementation Cycle
-- **Understand:** Review task/issue requirements thoroughly
+- **Understand:** Review task requirements and check ideas.md for context
+- **Research:** Update research.md when exploring solutions
 - **Plan:** Identify code changes and implementation steps
 - **Code:** Follow project standards and best practices
 - **Test:** Verify implementation meets requirements
+- **Document:** Log failures in scratch_history.md
 - **Commit:** Stage and commit with descriptive messages
 
 ### 3. Pre-Commit Quality Checks
@@ -38,10 +50,10 @@ git checkout -b "feature/short-description"  # Descriptive names, no task IDs
 
 ### 4. Commit Standards
 ```bash
-git commit -m "feat: implement user auth (plan.md task 3)"
-# Use: feat:, fix:, docs:, refactor:, test:
-# Reference tasks when applicable
-# Keep first line under 50 characters
+git commit -m "feat: implement user auth"
+# Use: feat:, fix:, docs:, refactor:, test:, chore:
+# Keep under 50 characters, no emojis
+# Reference tasks only when critical for context
 ```
 
 ### 5. Pull Request Process
@@ -58,7 +70,10 @@ git push origin <branch-name>
 - Log progress: `update_subtask --prompt="implementation notes"`
 
 **Simple Planning:**
-- Mark progress: `- [⚠️] Task name` (in progress) → `- [x] Task name` (done)
+- Mark progress: `- [⚠️] Task name` (in progress)
+- Research phase: `- [🔬] Task name` (researching)
+- Complete: `- [x] Task name` (done)
+- Add notes and cross-references to other docs
 
 ## Code Quality Standards
 
@@ -86,9 +101,12 @@ mkdocs build
 ## Iterative Development (AI Guidelines)
 
 ### For AI Assistants
-- **Proactive:** Continue to next logical step unless clarification needed
+- **Context:** Check ideas.md and research.md before starting
+- **Proactive:** Continue to next logical step unless blocked
+- **Research:** Update research.md with technical findings
+- **Learning:** Document failures in scratch_history.md
 - **Quality:** Run pre-commit checks before final commit
-- **Documentation:** Update relevant docs when adding features
+- **Documentation:** Update all relevant docs when adding features
 - **Testing:** Ensure tests pass before marking tasks complete
 
 ### Code Analysis Techniques
@@ -115,9 +133,12 @@ alwaysApply: true  # true for core rules
 
 ### Rule Maintenance
 - Update based on actual code patterns
+- Extract patterns from scratch_history.md
+- Promote research.md solutions to rules
 - Remove outdated practices
 - Test rules for AI effectiveness
 - Keep examples current and complete
+- Cross-reference with documentation files
 
 ---
 
