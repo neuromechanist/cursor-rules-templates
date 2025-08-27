@@ -11,11 +11,15 @@ alwaysApply: false
   - Common error patterns that could be prevented
   - New libraries or tools being used consistently
   - Emerging best practices in the codebase
+  - Lessons learned from scratch_history.md
+  - Research findings that should become standards
 
 - **Analysis Process:**
   - Compare new code with existing rules
   - Identify patterns that should be standardized
-  - Look for references to external documentation
+  - Review scratch_history.md for common failures
+  - Extract patterns from research.md solutions
+  - Consolidate design decisions from ideas.md
   - Check for consistent error handling patterns
   - Monitor test patterns and coverage (See [`testing.mdc`](mdc:testing.mdc))
 
@@ -53,10 +57,13 @@ alwaysApply: false
 
 - **Continuous Improvement Process:**
   - Regularly review code review comments and discussions
-  - Track common development questions or points of confusion
-  - Update rules after major refactors or architectural changes
-  - Add links to relevant external documentation or style guides
-  - Ensure related rules are cross-referenced for coherence
+  - Mine scratch_history.md for patterns to avoid
+  - Promote successful research.md solutions to rules
+  - Convert mature ideas.md concepts to standards
+  - Track common development questions or confusion
+  - Update rules after major refactors or changes
+  - Add links to relevant external documentation
+  - Ensure related rules are cross-referenced
 
 - **Rule Deprecation:**
   - Clearly mark outdated patterns/rules as deprecated
@@ -65,11 +72,21 @@ alwaysApply: false
   - Update references pointing to deprecated rules
 
 - **Documentation Synergy:**
-  - Keep rule examples synchronized with any associated project documentation ([`mkdocs.mdc`](mdc:mkdocs.mdc) or similar)
-  - Update references to external documentation if they change
-  - Maintain links between related rules for easy navigation
+  - Keep rule examples synchronized with project documentation
+  - Extract reusable patterns from research.md
+  - Document anti-patterns from scratch_history.md
+  - Link rules to relevant ideas.md concepts
+  - Update references to external documentation
+  - Maintain links between related rules
+  - Cross-reference with plan.md for task context
 
-Consider adding rules related to specific project aspects like CI/CD ([`ci-cd.mdc`](mdc:ci-cd.mdc)), data schemas, API design, etc., as relevant patterns emerge.
+- **Learning-Driven Rule Creation:**
+  - **From scratch_history.md:** Create rules preventing common failures
+  - **From research.md:** Standardize proven solutions
+  - **From ideas.md:** Formalize design principles
+  - **From plan.md:** Extract workflow patterns
+
+Consider adding rules related to specific project aspects like CI/CD ([`ci-cd.mdc`](mdc:ci-cd.mdc)), data schemas, API design, etc., as patterns emerge from documentation.
 
 Follow [`cursor_rules.mdc`](mdc:cursor_rules.mdc) for proper rule formatting and structure.
 
