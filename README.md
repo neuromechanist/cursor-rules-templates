@@ -1,170 +1,219 @@
-# LLM-Integrated Development Templates
+# AI Development Templates for Cursor & Claude
 
-**Purpose:** Proven templates for integrating AI/LLM assistance into software development workflows. Choose complexity-appropriate approaches from simple plan-driven development to AI-powered task management.
+Optimized templates for AI-assisted development with separate configurations for Cursor and Claude.
 
-## Who This Is For
+## 🎯 Quick Start
 
-- **AI-assisted developers** using Cursor, GitHub Copilot, or similar tools
-- **Solo developers** and **small teams** wanting structured LLM workflows  
-- **Projects needing** consistent development standards with AI integration
-- **Teams** looking to leverage AI for task breakdown and project management
-
-## Quick Start
-
-### 1. Choose Your Project Complexity
-
-**Simple Projects (< 10 tasks):**
-- Use `planning/simple/` with plan.md markdown tracking
-- Basic AI assistance with Cursor rules
-
-**Complex Projects (15+ tasks):**  
-- Use `planning/taskmaster/` with AI-powered task management
-- Advanced AI integration with MCP tools
-
-### 2. Set Up Core Rules
+### For Cursor Users
 ```bash
-mkdir -p .cursor/rules
-cp templates/core_rules/cursor_rules.mdc .cursor/rules/
-# Enables AI-assisted development with quality standards
+cp -r cursor-templates/.cursorrules your-project/
+cp -r cursor-templates/core_rules your-project/
+cp -r shared/.context-template your-project/.context
 ```
 
-### 3. Choose Planning Approach
+### For Claude Users  
 ```bash
-# For simple planning
-cp templates/planning/simple/* ./
-
-# For complex planning with AI task management
-cp templates/planning/taskmaster/* ./
+cp claude-templates/CLAUDE.md your-project/
+cp -r claude-templates/.rules your-project/
+cp -r shared/.context-template your-project/.context
 ```
 
-### 4. Set Up Quality Tools (Python Projects)
-```bash
-# Pre-commit hook for automatic code quality
-cp templates/config/pre-commit .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
-# Runs ruff check/format on staged Python files only
+## 📁 New Dual-Template Structure
 
-# Project configuration
-cp templates/config/pyproject.toml ./
+```
+rule_templates/
+├── cursor-templates/       # Cursor-optimized templates
+│   ├── .cursorrules       # Main configuration file
+│   ├── core_rules/        # Modular .mdc rule files
+│   └── planning/          # Workflow approaches
+│       ├── default/       # Plan-based (recommended)
+│       └── advanced-taskmaster/  # For complex projects
+│
+├── claude-templates/       # Claude-optimized templates
+│   ├── CLAUDE.md          # Concise instructions (<150 lines)
+│   └── .rules/            # Detailed rule references (.md)
+│       ├── testing.md     # NO MOCK policy details
+│       ├── python.md      # Language standards
+│       └── ...
+│
+└── shared/                # Common components
+    ├── .context-template/ # Workflow documentation
+    │   ├── plan.md       
+    │   ├── research.md   
+    │   ├── ideas.md      
+    │   └── scratch_history.md
+    ├── config/           # Pre-commit, gitignore, pyproject
+    └── github/           # GitHub Actions workflows
 ```
 
-### 5. Replace Placeholders
-Replace `{{PROJECT_NAME}}`, `{{YOUR_NAME}}`, etc. in copied files.
+## 🔑 Core Principles
 
-## Template Structure
+### [CRITICAL] NO MOCK Testing Policy
+- **Never** use mocks, stubs, or fake data
+- Real tests with real data only
+- If real testing isn't possible, don't write tests
+- Ask user for sample data or test environment
+- See `.rules/testing.md` for complete policy
 
-### Core Development Rules (`templates/core_rules/`)
-AI-integrated development standards:
+### [FUNDAMENTAL] Documentation-Driven Development
+All projects use `.context/` directory:
+- **plan.md** - Task tracking and phases
+- **research.md** - Technical explorations
+- **ideas.md** - Design concepts  
+- **scratch_history.md** - Failed attempts and lessons
 
-- **`cursor_rules.mdc`** ⭐ **Essential** - Complete AI-assisted workflow, git standards, code quality
-- **`testing.mdc`** - Testing standards with pytest integration
-- **`ci_cd.mdc`** - GitHub Actions workflows for automated quality
-- **`documentation.mdc`** - MkDocs documentation with AI assistance
-- **`self_improve.mdc`** - Continuous improvement with AI feedback
+### Commit Standards
+- Messages <50 characters, no emojis
+- Atomic commits with single purpose
+- Feature branches: `feature/short-description`
+- See `.rules/git.md` for details
 
-### Planning Systems (`templates/planning/`)
+## 📋 Cursor vs Claude Comparison
 
-**Simple Planning (`planning/simple/`)** - For straightforward projects:
-- `plan.md` with markdown checkboxes
-- `dev_workflow.mdc` - Concise workflow rules
-- `README.md` - Setup guide
+| Feature | Cursor | Claude |
+|---------|--------|--------|
+| **Main File** | `.cursorrules` | `CLAUDE.md` |
+| **Rule Format** | `.mdc` files (modular) | `.md` references |
+| **Structure** | Distributed rules | Inline critical + references |
+| **File Size** | Multiple small files | <150 lines total |
+| **Planning** | MDC workflows | Embedded instructions |
+| **Flexibility** | High modularity | Quick scanning |
+| **Best For** | Cursor IDE users | Claude Code/API users |
 
-**TaskMaster Planning (`planning/taskmaster/`)** - For complex projects:
-- AI-powered task breakdown and management
-- MCP integration for tool-assisted development
-- `taskmaster_reference.mdc` - Complete tool reference
+## 🚀 Setup Instructions
 
-### Configuration Templates (`templates/config/`)
+### Step 1: Choose Your Tool
 
-- **`pyproject.toml`** - Python project with ruff, pytest, mypy
-- **`mkdocs.yml`** - Documentation with Material theme
-- **`pre-commit`** - Git hook for automatic Python code formatting
-- **`github/workflows/`** - CI/CD templates (test, docs, release)
-
-## LLM Integration Features
-
-### AI-Assisted Development
-- **Cursor rules** optimized for code generation and review
-- **Task breakdown** with AI research capabilities (TaskMaster)
-- **Quality automation** with pre-commit hooks
-- **Documentation** templates for AI-generated docs
-
-### Code Quality Automation
-- **Pre-commit hooks** run `ruff check --fix` and `ruff format` on staged Python files
-- **CI/CD templates** for automated testing and deployment
-- **Type checking** and linting configurations
-
-### Workflow Optimization
-- **Branch naming** standards for AI comprehension
-- **Commit message** templates for AI context
-- **Task tracking** with AI-powered complexity analysis
-
-## Use Cases & Examples
-
-### Simple Python CLI Tool
+#### Cursor Setup
 ```bash
-mkdir -p .cursor/rules
-cp templates/core_rules/cursor_rules.mdc .cursor/rules/
-cp templates/planning/simple/* ./
-cp templates/config/{pyproject.toml,pre-commit} ./
-cp templates/config/pre-commit .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
-# Edit placeholders: PROJECT_NAME, etc.
+# Copy core files
+cp cursor-templates/.cursorrules my-project/
+cp -r cursor-templates/core_rules my-project/
+
+# Copy planning (default: plan-based)
+cp cursor-templates/planning/default/dev_workflow.mdc my-project/
+
+# Copy shared components
+cp -r shared/.context-template my-project/.context
+cp shared/config/gitignore-template my-project/.gitignore
 ```
 
-### Complex Web Application
+#### Claude Setup
 ```bash
-mkdir -p .cursor/rules
-cp templates/core_rules/*.mdc .cursor/rules/
-cp templates/planning/taskmaster/* ./
-cp templates/config/* ./
-# Set up TaskMaster: task-master init && task-master parse-prd
+# Copy main instruction file
+cp claude-templates/CLAUDE.md my-project/
+
+# Copy rule references
+cp -r claude-templates/.rules my-project/
+
+# Copy shared components
+cp -r shared/.context-template my-project/.context
+cp shared/config/gitignore-template my-project/.gitignore
 ```
 
-## Customization
+### Step 2: Customize Templates
 
-### Standard Placeholders
+Replace placeholders in all files:
 - `{{PROJECT_NAME}}` - Your project name
-- `{{YOUR_NAME}}` - Your name/organization  
-- `{{YOUR_EMAIL}}` - Your email
-- `{{GITHUB_USERNAME}}` - GitHub username
-- `{{REPO_NAME}}` - Repository name
+- `{{ENV_NAME}}` - Python environment name
+- `{{TECH_STACK}}` - Your technology stack
 
-### Bulk Replace
+### Step 3: Set Up Pre-commit (Python Projects)
 ```bash
-find . -name "*.mdc" -o -name "*.md" -o -name "*.toml" -o -name "*.yml" | \
-xargs sed -i 's/{{PROJECT_NAME}}/my-project/g'
-```
-
-## Pre-commit Quality Hook
-
-The included pre-commit script (`templates/config/pre-commit`) provides automatic code quality for Python projects:
-
-- **Runs on commit:** Automatically processes staged Python files
-- **Ruff integration:** Executes `ruff check --fix --unsafe-fixes` and `ruff format`
-- **Smart staging:** Re-stages only the originally staged files after formatting
-- **Fail-safe:** Prevents commits if unfixable issues exist
-
-**Setup:**
-```bash
-cp templates/config/pre-commit .git/hooks/pre-commit
+cp shared/config/pre-commit .git/hooks/
 chmod +x .git/hooks/pre-commit
+# Automatically runs ruff format and check on commits
 ```
 
-## Why These Templates?
+### Step 4: Initialize Context
+```bash
+cd my-project
+# Context files are already in .context/
+# Just start using them!
+```
 
-### Problem Solved
-- **Inconsistent AI assistance** across projects
-- **Manual setup** of development workflows  
-- **Poor AI context** from unclear project structure
-- **Quality control** gaps in AI-generated code
+## 🔄 Migration Between Tools
 
-### Benefits
-- **Faster project setup** with proven patterns
-- **Better AI assistance** through structured rules and context
-- **Automated quality control** with pre-commit hooks
-- **Scalable workflows** from simple to complex projects
+### Cursor → Claude
+1. Combine `.cursorrules` + `.mdc` rules into `CLAUDE.md`
+2. Extract critical rules (NO MOCKS, commits) inline
+3. Convert remaining `.mdc` files to `.md` in `.rules/`
+4. Keep CLAUDE.md under 150 lines
+
+### Claude → Cursor
+1. Split `CLAUDE.md` sections into `.mdc` files
+2. Create `.cursorrules` pointing to rule files
+3. Move detailed content to appropriate `.mdc` files
+4. Maintain modular structure
+
+## 📚 Planning Approaches
+
+### Default: Plan-Based Development
+- Simple `.context/plan.md` with checkboxes
+- Best for most projects
+- Clear task progression
+- No external dependencies
+
+### Advanced: TaskMaster
+- AI-powered task breakdown
+- Dependency management
+- For complex multi-phase projects
+- Requires TaskMaster CLI installation
+
+## 🛠️ Included Components
+
+### Shared Configuration Files
+- **gitignore-template** - Comprehensive Python/.context ignores
+- **pre-commit** - Python formatting hook (ruff)
+- **pyproject.toml** - Python project configuration
+- **mkdocs.yml** - Documentation site config
+
+### GitHub Actions Workflows
+- **test.yml** - CI testing pipeline
+- **docs.yml** - Documentation deployment
+- **release.yml** - Package release automation
+
+## 📖 Rule Categories
+
+### Always Referenced
+- **testing.md** - NO MOCK policy and real testing
+- **self_improve.md** - Learning from projects
+- **documentation.md** - MkDocs and writing standards
+
+### Language/Tool Specific
+- **python.md** - Python style, linting, types
+- **git.md** - Version control standards
+- **ci_cd.md** - GitHub Actions setup
+
+## 🤝 Contributing
+
+1. Create issue for proposed changes
+2. Branch: `feature/description`
+3. Make atomic commits (<50 chars)
+4. Test with both Cursor and Claude
+5. PR with clear description
+6. Update both template versions
+
+## 📝 Key Differences from Original
+
+### What's New
+- **Dual-template system** for tool-specific optimization
+- **CLAUDE.md** format for Claude users (<150 lines)
+- **Shared components** reduce duplication
+- **Plan-based as default** (TaskMaster now advanced option)
+- **.context/** directory standard for all templates
+
+### What's Preserved
+- NO MOCK testing philosophy
+- Atomic commit standards
+- Documentation-driven development
+- Pre-commit hooks
+- GitHub Actions workflows
+
+## 📜 License
+
+MIT - See LICENSE file
 
 ---
 
-**License:** MIT - Adapt freely for your projects
+*Remember: Real tests only. No mocks. Document everything in .context/.*
