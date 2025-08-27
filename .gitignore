@@ -17,10 +17,9 @@ __pycache__/
 # Node
 node_modules/
 
-# Claude
+# Claude (for actual projects, not templates)
 .claude/
-Claude.md
-CLAUDE.md
+# Note: CLAUDE.md in root is ignored, but templates are tracked
 
 # sample project
 sample_rules/
