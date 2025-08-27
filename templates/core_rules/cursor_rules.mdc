@@ -1,150 +1,56 @@
 ---
-title: AI-Assisted Development Workflow for {{PROJECT_NAME}}
-description: AI-powered development workflow for {{PROJECT_NAME}} projects with detailed breakdown and dependency tracking.
+title: AI-Assisted Development Workflow
+description: Concise AI-powered workflow with documentation-driven development
 globs:
 alwaysApply: true
 ---
 
-
 ## Documentation-Driven Development
+**Core Docs:** `plan.md` (tasks), `research.md` (solutions), `ideas.md` (concepts), `scratch_history.md` (failures)
+**Usage:** Check ideas→research→implement→document failures
 
-### Core Documents
-- **plan.md** / **TaskMaster**: Task tracking and phases
-- **research.md**: Technical solutions and references
-- **ideas.md**: Design concepts and exploration
-- **scratch_history.md**: Failed attempts and lessons
+## Task Management
+**Simple:** `plan.md` with `[ ]`→`[⚠️]`→`[🔬]`→`[x]`  
+**Complex:** TaskMaster CLI/MCP tools for dependencies
 
-### Task Management Options
+## Development Flow
+1. **Branch:** `git checkout -b feature/short-name`
+2. **Research:** Update research.md with findings
+3. **Code:** Follow existing patterns
+4. **Test:** Real tests only (no mocks)
+5. **Commit:** `feat: concise message` (<50 chars)
+6. **PR:** Descriptive title, reference tasks in body
 
-**TaskMaster (Complex Projects):**
-- MCP Server tools: `get_tasks`, `add_subtask`, `next_task`, `update_subtask`
-- CLI fallback: `task-master list`, `task-master next`, `task-master show <id>`
-- Integrates with research.md for technical context
-
-**Simple Planning (Small Projects):**
-- Use `plan.md` with markdown checkboxes: `- [ ]` → `- [x]`
-- Reference other docs: `(see research.md#section)`
-
-## Core Development Process
-
-### 1. Feature Branch Workflow
+## Pre-commit (Python)
 ```bash
-git checkout -b "feature/short-description"  # Descriptive names, no task IDs
+cp templates/config/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+# Auto runs: ruff check --fix --unsafe-fixes + format
 ```
 
-### 2. Implementation Cycle
-- **Understand:** Review task requirements and check ideas.md for context
-- **Research:** Update research.md when exploring solutions
-- **Plan:** Identify code changes and implementation steps
-- **Code:** Follow project standards and best practices
-- **Test:** Verify implementation meets requirements
-- **Document:** Log failures in scratch_history.md
-- **Commit:** Stage and commit with descriptive messages
+## Standards
+- **Python:** ruff, pytest, type hints
+- **Tests:** Real data only, no mocks (see [`testing.mdc`](mdc:testing.mdc))
+- **Commits:** No emojis, atomic, focused
+- **Code:** Self-documenting, minimal comments
 
-### 3. Pre-Commit Quality Checks
-- **Python projects:** Use `templates/config/pre-commit` script
-  - Runs `ruff check --fix --unsafe-fixes` on staged Python files only
-  - Runs `ruff format` on staged files
-  - Re-stages modified files automatically
-- **Install:** `cp templates/config/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit`
+## AI Guidelines
+- Check context docs before starting
+- Document failures immediately
+- Run quality checks before marking complete
+- Continue unless blocked
 
-### 4. Commit Standards
-```bash
-git commit -m "feat: implement user auth"
-# Use: feat:, fix:, docs:, refactor:, test:, chore:
-# Keep under 50 characters, no emojis
-# Reference tasks only when critical for context
-```
-
-### 5. Pull Request Process
-```bash
-git push origin <branch-name>
-# Create PR with descriptive title (no task IDs)
-# Body: detail changes, reference issues/tasks optionally
-```
-
-## Task Status Management
-
-**Task Master:**
-- Set status: `update_task_status --status=in-progress|done`
-- Log progress: `update_subtask --prompt="implementation notes"`
-
-**Simple Planning:**
-- Mark progress: `- [⚠️] Task name` (in progress)
-- Research phase: `- [🔬] Task name` (researching)
-- Complete: `- [x] Task name` (done)
-- Add notes and cross-references to other docs
-
-## Code Quality Standards
-
-### Python Projects
-- **Linting:** ruff (configured in pyproject.toml)
-- **Testing:** pytest with coverage
-- **Type hints:** Use mypy for type checking
-- **Pre-commit:** Automatic ruff formatting on staged files
-
-### General Standards
-- Write clear, self-documenting code
-- Use meaningful variable/function names
-- Add docstrings for public APIs
-- Test core functionality
-- Keep functions focused and small
-
-## Environment Management
-```bash
-# Activate environment before running commands
-conda activate my-env  # or source .venv/bin/activate
-pytest
-mkdocs build
-```
-
-## Iterative Development (AI Guidelines)
-
-### For AI Assistants
-- **Context:** Check ideas.md and research.md before starting
-- **Proactive:** Continue to next logical step unless blocked
-- **Research:** Update research.md with technical findings
-- **Learning:** Document failures in scratch_history.md
-- **Quality:** Run pre-commit checks before final commit
-- **Documentation:** Update all relevant docs when adding features
-- **Testing:** Ensure tests pass before marking tasks complete
-
-### Code Analysis Techniques
-- **Symbol Search:** Use grep/ripgrep for exported functions/classes
-- **Top-level exports:** `rg "export (function|const|class)"` (JS/TS), `rg "^def \w+\("` (Python)
-
-## Rule Writing Standards (For Project Customization)
-
-### Effective Rule Structure
+## Rule Writing
 ```yaml
 ---
-description: Brief, specific purpose
-globs: ["*.py", "src/**"]  # Optional file patterns
-alwaysApply: true  # true for core rules
+description: Brief purpose
+globs: ["*.py"]  # Optional
+alwaysApply: true
 ---
 ```
-
-### Content Guidelines
-- **Specific and actionable** instructions
-- **Bullet points** for clarity
-- **Tool/command references** when relevant
-- **Cross-references:** `[Rule Name](mdc:filename.mdc)`
-- **Examples** for complex concepts
-
-### Rule Maintenance
-- Update based on actual code patterns
-- Extract patterns from scratch_history.md
-- Promote research.md solutions to rules
-- Remove outdated practices
-- Test rules for AI effectiveness
-- Keep examples current and complete
-- Cross-reference with documentation files
+- Specific, actionable bullets
+- Cross-reference: `[Name](mdc:file.mdc)`
+- Update from scratch_history patterns
 
 ---
-
-*Adapt this workflow for {{PROJECT_NAME}}'s specific needs, team size, and technology stack.*
-
-
----
-
-*Customize these rule-writing guidelines for {{PROJECT_NAME}}'s team size, experience level, and development practices.*
+*Adapt for {{PROJECT_NAME}}'s needs.*

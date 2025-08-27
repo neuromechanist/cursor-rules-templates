@@ -1,96 +1,65 @@
 ---
-description: Process for continuously improving development rules
+description: Continuous rule improvement from learned patterns
 globs:
 alwaysApply: false
 ---
 # Continuous Rule Improvement
 
-- **Rule Improvement Triggers:**
-  - New code patterns not covered by existing rules
-  - Repeated similar implementations across files
-  - Common error patterns that could be prevented
-  - New libraries or tools being used consistently
-  - Emerging best practices in the codebase
-  - Lessons learned from scratch_history.md
-  - Research findings that should become standards
+## Improvement Triggers
+- Pattern used 3+ times → Create rule
+- Common failures in scratch_history.md → Add prevention rule
+- Successful research.md solutions → Standardize
+- Mature ideas.md concepts → Formalize
+- Repeated PR feedback → Document standard
 
-- **Analysis Process:**
-  - Compare new code with existing rules
-  - Identify patterns that should be standardized
-  - Review scratch_history.md for common failures
-  - Extract patterns from research.md solutions
-  - Consolidate design decisions from ideas.md
-  - Check for consistent error handling patterns
-  - Monitor test patterns and coverage (See [`testing.mdc`](mdc:testing.mdc))
+## Analysis Sources
+1. **scratch_history.md:** Mine for anti-patterns
+2. **research.md:** Extract proven solutions  
+3. **ideas.md:** Promote design principles
+4. **plan.md:** Identify workflow patterns
+5. **Code reviews:** Track common feedback
 
-- **Rule Updates:**
-  - **Add New Rules When:**
-    - A new technology/pattern is used consistently (e.g., in 3+ places)
-    - Common bugs could be prevented by a rule
-    - Code reviews repeatedly mention the same feedback
-    - New security, performance, or architectural patterns emerge
+## Rule Updates
 
-  - **Modify Existing Rules When:**
-    - Better examples exist in the codebase
-    - Additional edge cases or nuances are discovered
-    - Related rules have been updated
-    - Implementation details have changed significantly
+### Add Rules When:
+- New pattern appears 3+ times
+- Common bug could be prevented
+- Better approach discovered
+- Security/performance pattern emerges
 
-- **Example Pattern Recognition (Generic):**
-  ```python
-  # If you see repeated setup/teardown like:
-  db = connect_db()
-  try:
-      process_data(db, data)
-  finally:
-      db.close()
+### Modify Rules When:
+- Better examples found in codebase
+- Edge cases discovered
+- Implementation changed
+- Related rules updated
 
-  # Consider a rule for using context managers:
-  # - Use `with connect_db() as db:` for resource management
-  ```
+### Remove Rules When:
+- Tech stack changed
+- Pattern deprecated
+- No longer applicable
 
-- **Rule Quality Checks:**
-  - Rules should be actionable, specific, and clearly worded
-  - Examples should ideally come from actual (or realistic) code
-  - References (to other rules or external docs) should be accurate and up-to-date
-  - Patterns should be consistently enforceable (manually or via linters)
+## Quality Checks
+- **Actionable:** Clear what to do
+- **Specific:** No ambiguity
+- **Examples:** From actual code
+- **Cross-referenced:** Link related rules
 
-- **Continuous Improvement Process:**
-  - Regularly review code review comments and discussions
-  - Mine scratch_history.md for patterns to avoid
-  - Promote successful research.md solutions to rules
-  - Convert mature ideas.md concepts to standards
-  - Track common development questions or confusion
-  - Update rules after major refactors or changes
-  - Add links to relevant external documentation
-  - Ensure related rules are cross-referenced
+## Learning-Driven Creation
+```python
+# From scratch_history.md failure:
+# "Database connections leaked"
+# → Rule: Always use context managers
 
-- **Rule Deprecation:**
-  - Clearly mark outdated patterns/rules as deprecated
-  - Provide guidance or migration paths if applicable
-  - Remove rules that no longer apply to the current tech stack or practices
-  - Update references pointing to deprecated rules
+with get_db() as db:  # Good
+    process(db)
+# Not: db = get_db(); process(db); db.close()
+```
 
-- **Documentation Synergy:**
-  - Keep rule examples synchronized with project documentation
-  - Extract reusable patterns from research.md
-  - Document anti-patterns from scratch_history.md
-  - Link rules to relevant ideas.md concepts
-  - Update references to external documentation
-  - Maintain links between related rules
-  - Cross-reference with plan.md for task context
-
-- **Learning-Driven Rule Creation:**
-  - **From scratch_history.md:** Create rules preventing common failures
-  - **From research.md:** Standardize proven solutions
-  - **From ideas.md:** Formalize design principles
-  - **From plan.md:** Extract workflow patterns
-
-Consider adding rules related to specific project aspects like CI/CD ([`ci-cd.mdc`](mdc:ci-cd.mdc)), data schemas, API design, etc., as patterns emerge from documentation.
-
-Follow [`cursor_rules.mdc`](mdc:cursor_rules.mdc) for proper rule formatting and structure.
-
+## Maintenance Process
+1. Weekly: Review scratch_history.md
+2. After features: Update from research.md
+3. Post-refactor: Revise affected rules
+4. Quarterly: Audit all rules
 
 ---
-
-*Adapt this improvement process to {{PROJECT_NAME}}'s team size, development pace, and culture.*
+*Rules evolve from experience. Document failures, standardize successes.*

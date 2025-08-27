@@ -1,89 +1,78 @@
 ---
-description: Documentation standards using MkDocs
+description: MkDocs documentation standards
 globs:
 alwaysApply: false
 ---
 # Documentation Standards (MkDocs)
 
-- **Goal:** Create clear, navigable, and maintainable project documentation.
-- **Technology Stack:**
-  - `mkdocs`: Recommended static site generator.
-  - `mkdocs-material`: Recommended theme for features and responsiveness.
-  - `mkdocstrings[python]` (or language equivalent): For generating API docs from code comments/docstrings.
-  - `mkdocs-jupyter` / other plugins: As needed for specific content types (notebooks, diagrams).
-- **Installation:** Include documentation dependencies in your project setup (e.g., `pyproject.toml`, `requirements-dev.txt`).
-- **Configuration (`mkdocs.yml`)**
-  - **Metadata:** Define `site_name`, `site_url`, `site_author`, `repo_url`, `repo_name`.
-  - **Theme (`mkdocs-material`):**
-    - `name: material`
-    - `features`: Enable useful navigation, search, and content display features (e.g., `navigation.tabs`, `navigation.sections`, `search.suggest`, `content.code.annotate`).
-    - `palette`: Set primary/accent colors.
-    - `logo`, `favicon`: Add project branding.
-  - **Navigation (`nav`):**
-    - **Define manually:** Create a clear, logical site structure. Avoid relying solely on file structure.
-    - Group related pages under sections.
-    - Include top-level files like `CONTRIBUTING.md`, `README.md` if desired.
-    ```yaml
-    # Example Structure
-    nav:
-      - Home: index.md
-      - Guides:
-        - Getting Started: guides/getting_started.md
-        - Advanced Usage: guides/advanced.md
-      - API Reference:
-        - Module A: api/module_a.md
-        - Module B: api/module_b.md
-      - Contributing: CONTRIBUTING.md
-    ```
-  - **Plugins:**
-    - Enable `search`.
-    - Configure `mkdocstrings` (or equivalent) for your language(s).
-      ```yaml
-      plugins:
-        - search
-        - mkdocstrings:
-            handlers:
-              python: # Or other languages
-                options:
-                  show_root_heading: yes
-                  show_source: no # Default to no, enable if needed
-                  members_order: source # Or alphabetical
-      ```
-    - Add other plugins (`mkdocs-jupyter`, etc.) as required.
-  - **Markdown Extensions:**
-    - Enable extensions for enhanced formatting: `pymdownx.highlight`, `pymdownx.superfences`, `admonition`, `toc`, `attr_list`.
-- **Content (`docs/` directory)**
-  - Write content in Markdown (`.md`).
-  - Organize files mirroring the `nav` structure.
-  - Use standard Markdown and leverage theme-specific features (admonitions, code annotations, tabs - see Material for MkDocs docs: [https://squidfunk.github.io/mkdocs-material/](https://squidfunk.github.io/mkdocs-material/)).
-- **API Documentation (`mkdocstrings` or similar)**
-  - Write clear, comprehensive docstrings/comments in your source code (follow language conventions like Google/NumPy style for Python).
-  - Use the plugin's syntax in your `.md` files to auto-generate documentation from code.
-    ```markdown
-    # Module A API
+## Setup
+**Install:** `pip install mkdocs mkdocs-material mkdocstrings[python]`  
+**Config:** `mkdocs.yml` in project root
 
-    ::: my_project.module_a.MyClass
-        handler: python
-        options:
-          show_root_heading: true
+## Minimal mkdocs.yml
+```yaml
+site_name: {{PROJECT_NAME}}
+site_url: https://example.com
+repo_url: https://github.com/user/repo
 
-    ::: my_project.module_a.my_function
-        handler: python
-    ```
-- **Development Workflow**
-  - Use `mkdocs serve` for live preview while writing.
-  - Use `mkdocs build` to generate the final static site (typically to `site/`).
-- **Deployment (CI/CD)**
-  - Automate builds and deployments (e.g., to GitHub Pages, Netlify, Read the Docs) via CI/CD pipelines (see [`ci-cd.mdc`](mdc:ci-cd.mdc)).
-  - Follow platform-specific deployment guides (e.g., MkDocs Material guide for GH Pages: [https://squidfunk.github.io/mkdocs-material/hosting-your-docs/](https://squidfunk.github.io/mkdocs-material/hosting-your-docs/)).
-- **General Best Practices:**
-  - Keep documentation concise and focused.
-  - Use examples generously.
-  - Update documentation alongside code changes.
-  - Link related sections and external resources.
- 
+theme:
+  name: material
+  features: [navigation.tabs, search.suggest]
+  
+nav:
+  - Home: index.md
+  - API: api/
+  - Guides: guides/
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_root_heading: yes
+            members_order: source
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - admonition
+  - toc
+```
+
+## Structure
+```
+docs/
+  index.md           # Home page
+  guides/
+    getting_started.md
+    advanced.md
+  api/               # Auto-generated from docstrings
+    module_a.md      # Contains ::: my_project.module_a
+```
+
+## API Documentation
+```markdown
+# Module A
+::: my_project.module_a
+    handler: python
+    options:
+      show_source: no
+```
+
+## Commands
+- **Develop:** `mkdocs serve` (live preview at localhost:8000)
+- **Build:** `mkdocs build` (generates site/)
+- **Deploy:** `mkdocs gh-deploy` (to GitHub Pages)
+
+## Writing Tips
+- Use admonitions: `!!! note "Title"`
+- Code blocks with syntax highlighting
+- Link sections: `[text](../path/file.md#section)`
+- Keep concise, use examples
+
+## CI/CD Integration
+See [`ci-cd.mdc`](mdc:ci-cd.mdc) for auto-deployment workflow
 
 ---
-
-*Adapt these documentation standards to match {{PROJECT_NAME}}'s complexity and user needs.*
- 
+*Update docs with code changes. Examples > explanations.*

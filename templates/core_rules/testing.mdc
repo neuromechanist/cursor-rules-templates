@@ -1,86 +1,75 @@
 ---
-description: Testing standards and best practices
+description: Testing standards with strict NO MOCK policy
 globs:
 alwaysApply: false
 ---
 # Testing Standards
 
-- **Goal:** Ensure code reliability, correctness, and stability through automated testing.
-- **General Principles:**
-    - **Write Tests First (TDD Ideal):** Where practical, write tests before or alongside implementation.
-    - **Test Coverage:** Aim for meaningful coverage of critical paths and logic, not just line count.
-    - **Isolation:** Unit tests should test components in isolation, using mocks/stubs for dependencies.
-    - **Repeatability:** Tests must be deterministic and produce the same results every time.
-    - **Clarity:** Test code should be clear, readable, and easy to understand.
-    - **Speed:** Keep tests fast, especially unit tests.
-- **Recommended Frameworks & Tools:**
-    - **Python:** `pytest` (framework), `pytest-cov` (coverage), `unittest.mock` / `pytest-mock` (mocking).
-    - **JavaScript/TypeScript:** `jest` or `vitest` (frameworks), `@testing-library/react` (React components), `msw` (API mocking).
-    - **JSON Schema:** `jsonschema` (Python), `ajv` (JavaScript), or language-specific validators.
-    - **MATLAB:** MATLAB Unit Testing Framework.
-    - *(Adapt based on project stack)*
-- **Test Structure (`tests/` or `src/**/__tests__`)**
-    - Organize tests logically, often mirroring the source code structure.
-    - Use descriptive filenames (e.g., `test_user_model.py`, `auth.test.ts`).
-    - **Python Example:**
-      ```
-      tests/
-        __init__.py
-        conftest.py         # Shared pytest fixtures
-        unit/
-          __init__.py
-          test_module_a.py
-        integration/
-          __init__.py
-          test_api_endpoints.py
-        schemas/            # If validating data schemas
-          __init__.py
-          test_schema_validation.py
-          valid_examples/
-          invalid_examples/
-      ```
-    - **JS/TS Example (co-located):**
-      ```
-      src/
-        components/
-          Button/
-            Button.tsx
-            Button.test.tsx
-        utils/
-          formatters.ts
-          formatters.test.ts
-      ```
-- **Types of Tests:**
-    - **Unit Tests:** Test individual functions, methods, or components in isolation. Mock external dependencies.
-    - **Integration Tests:** Test the interaction between multiple components or modules (e.g., API endpoint calling a service layer that interacts with a database mock).
-    - **End-to-End (E2E) Tests:** (Optional, slower) Test the entire application flow from the user's perspective (e.g., using Cypress, Playwright).
-    - **Schema Validation Tests:** Validate data structures against a defined schema.
-- **Writing Effective Tests:**
-    - **Arrange, Act, Assert (AAA):** Structure tests clearly.
-    - **Specific Assertions:** Use the most specific assertion possible (e.g., `assertEqual(a, b)` instead of `assertTrue(a == b)`).
-    - **Test Edge Cases:** Include tests for empty inputs, null values, errors, boundaries.
-    - **Descriptive Names:** Test function names should clearly state what they are testing (e.g., `test_login_with_invalid_password_raises_error`).
-- **Fixtures & Setup (`conftest.py`, `setupTests.ts`)**
-    - Use fixtures (pytest) or setup files (Jest/Vitest) to share common setup logic (e.g., database connections, mock servers, test data).
-    - Keep fixtures focused and reusable.
-- **Schema Validation:**
-    - Maintain directories of valid and invalid example data.
-    - Write tests that load the schema and iterate through examples, asserting valid examples pass and invalid examples raise specific validation errors.
-- **Running Tests:**
-    - Provide clear instructions in `README.md` or `CONTRIBUTING.md`.
-    - Standard commands: `pytest`, `npm test`, `yarn test`, `pnpm test`.
-    - Integrate coverage reporting: `pytest --cov=src`, `npm test -- --coverage`.
-- **Continuous Integration (CI)**
-    - **Mandatory:** Run all tests automatically on every pull request and push/merge to the main branch (see [`ci-cd.mdc`](mdc:ci-cd.mdc)).
-    - Fail the build if any tests fail or if coverage drops below a defined threshold (optional).
-    - Ensure the CI environment has all necessary dependencies and services.
+## Core Principle: NO MOCKS, NO FAKE DATA
+**STRICT RULE:** Never use mocks, stubs, or fake datasets. If real testing isn't possible, don't write tests.
+- **No mock objects** - Use real implementations
+- **No mock datasets** - Use actual sample data
+- **No stub services** - Connect to real test instances
+- **Alternative:** Ask user for sample data or test environment setup
+
+## When to Write Tests
+- **DO:** Test with real data and actual dependencies
+- **DO:** Use test databases with real schemas
+- **DO:** Test against actual file systems
+- **DON'T:** Write tests if only mocks would work
+- **DON'T:** Create artificial test scenarios
+
+## Test Structure
+```
+tests/
+  conftest.py          # Real test fixtures
+  sample_data/         # Actual data samples (user-provided)
+    valid/
+    invalid/
+  integration/         # Tests with real dependencies
+    test_database.py   # Real DB connection
+    test_api.py        # Real API calls
+```
+
+## Frameworks (Language-Specific)
+- **Python:** `pytest` with real fixtures
+- **JavaScript:** `vitest` or `jest` (no mocking libs)
+- **Database:** Use test DB with real migrations
+- **APIs:** Test against staging/local instances
+
+## Writing Real Tests
+```python
+# GOOD: Real database test
+def test_user_creation(real_db):
+    user = User.create(email="test@example.com")
+    assert real_db.query(User).filter_by(email="test@example.com").first()
+
+# BAD: Mock test - DON'T WRITE THIS
+# def test_user_creation(mock_db):  # NO!
+#     mock_db.return_value = User()  # NO!
+```
+
+## Test Data Management
+- **Sample data:** Request from user or use production samples
+- **Test databases:** Use Docker containers or test instances
+- **File fixtures:** Use actual files, not generated ones
+- **API testing:** Point to real test endpoints
+
+## CI Integration
+- Run tests with real test environment
+- Skip tests if environment unavailable
+- Document required test infrastructure
+- See [`ci-cd.mdc`](mdc:ci-cd.mdc) for pipeline setup
+
+## When Tests Are Impossible
+If real testing requires unavailable resources:
+1. Document what's needed in `test_requirements.md`
+2. Ask user to provide:
+   - Sample datasets
+   - Test environment access
+   - API keys for test accounts
+3. Skip testing until real resources available
 
 ---
 
-*Adapt these testing standards to fit {{PROJECT_NAME}}'s specific requirements and technology stack.*
- 
-
----
-
-*Adapt these testing standards to fit {{PROJECT_NAME}}'s specific requirements and technology stack.*
- 
+*NO MOCKS. Real tests or no tests. Ask for help setting up real test environments.*
