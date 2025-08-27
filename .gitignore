@@ -24,3 +24,6 @@ CLAUDE.md
 
 # sample project
 sample_rules/
+
+# Development context (local only)
+.context/
